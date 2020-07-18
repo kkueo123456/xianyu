@@ -14,7 +14,7 @@
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <evalDialiog :chuanId="scope.row.id"></evalDialiog>
+          <evalDialiog :chuanId="scope.row.id" :state="true"></evalDialiog>
         </template>
       </el-table-column>
     </el-table>

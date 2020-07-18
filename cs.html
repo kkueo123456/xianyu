@@ -9,11 +9,13 @@
 
 <body>
   <script>
-    var arr1 = ['1', '2', '3', '4', '4', '4', '4', '5']
-    var arr2 = new Set(arr1)
-    var arr3 = Array.from(arr2)
-
-    console.log(Object.prototype.toString.call(arr3))
+    const obj = {
+      a: 1,
+      b: 2,
+      c: 3
+    };
+    const values = Object.values(obj);
+    console.log(values);
 
   </script>
 </body>

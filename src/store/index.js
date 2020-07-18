@@ -12,7 +12,7 @@ const mutations = {
 }
 const actions = {
   //估价的数据请求
-  getEvlJewData(context) {
+  getEvlJewData(context, requestdata) {
     var data = [{
       id: 0,
       num: '123456000',
@@ -48,7 +48,7 @@ const actions = {
     }, ]
     context.commit('mainData', data)
   },
-  getEvlBagData(context) {
+  getEvlBagData(context, requestdata) {
     var data = [{
       id: 4,
       num: '45678900',
@@ -84,7 +84,7 @@ const actions = {
     }, ]
     context.commit('mainData', data)
   },
-  getEvlWatchData(context) {
+  getEvlWatchData(context, requestdata) {
     var data = [{
       id: 7,
       num: '11111111',
@@ -120,7 +120,7 @@ const actions = {
     }, ]
     context.commit('mainData', data)
   },
-  getEvlAnotherData(context) {
+  getEvlAnotherData(context, requestdata) {
     var data = [{
       id: 10,
       num: '11111111',

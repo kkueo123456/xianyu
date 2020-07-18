@@ -1,7 +1,8 @@
 <template>
   <!-- 估价的dialog -->
-  <div>
-    <el-button type="text" @click="eval(chuanId)">估价</el-button>
+  <div class="dialogWrap">
+    <el-button type="text" @click="eval(chuanId)" v-if="state==true">估价</el-button>
+    <el-button type="text" @click="eval(chuanId)" v-if="state==false">质检</el-button>
     <el-dialog title="质检报告" :visible.sync="isShow" :modal-append-to-body="false">
       <div class="small-img">
         <el-image
@@ -13,14 +14,15 @@
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="quxiao">取 消</el-button>
-        <el-button @click="sure">确 定</el-button>
+        <el-button @click="evalSure" v-if="state==true">确 定</el-button>
+        <el-button @click="testSure" v-if="state==false">确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 <script>
 export default {
-  props: ["chuanId"],
+  props: ["chuanId", "state"],
   components: {},
   data() {
     return {
@@ -42,13 +44,18 @@ export default {
     eval(id) {
       this.isShow = true;
       this.skuId = id;
-      console.log(id)
     },
     quxiao() {
       this.isShow = false;
     },
-    sure() {
+    //估价确定
+    evalSure() {
       this.isShow = false;
+    },
+    //质检确定
+    testSure() {
+      this.isShow = false;
+      console.log(this.skuId,'质检')
     }
   },
   mounted() {},
@@ -57,10 +64,14 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
+.dialogWrap {
+  display: inline-block;
+}
+
 .small-img .el-image {
   border: 2px solid #888888;
   width: 100px;
   height: 100px;
-  margin-left 10px
+  margin-left: 10px;
 }
 </style>
