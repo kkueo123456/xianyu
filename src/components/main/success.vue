@@ -1,5 +1,5 @@
 <template>
-  <!-- 待估价 -->
+  <!-- 交易完成 -->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>

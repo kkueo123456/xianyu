@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // var data =1
+    // data && data == 1 ? console.log('嘿嘿嘿') : console.log('sb')
+    const oldProtoMethods = Array.prototype
+    const proto = Object.create(oldProtoMethods)
+    console.log(proto.__proto__)
+
+  </script>
+</body>
+
+</html>

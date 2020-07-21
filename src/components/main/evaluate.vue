@@ -49,6 +49,12 @@ export default {
     //初始化
     init() {
       //根据路由名做判断请求什么样的数据
+      // 使用短路表达式
+      // this.requestData.type =
+      //   (this.$route.name == "jewelry" && "jewelry") ||
+      //   (this.$route.name == "bags" && "bags") ||
+      //   (this.$route.name == "watch" && "watch") ||
+      //   (this.$route.name == "another" && "another");
       switch (this.$route.name) {
         case "jewelry":
           this.$store.dispatch("getEvlJewData");

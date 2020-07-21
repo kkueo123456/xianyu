@@ -5,17 +5,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .cont {
+      width: 100vw;
+      height: 400px;
+      background-color: #ccc;
+      color: white;
+      position: relative;
+      font-size: 80px;
+      line-height: 400px;
+      text-align: center;
+    }
+
+  </style>
 </head>
 
 <body>
+  <div class='cont'>
+  </div>
   <script>
-    const obj = {
-      a: 1,
-      b: 2,
-      c: 3
-    };
-    const values = Object.values(obj);
-    console.log(values);
+    let num = 1
+    var wrap = document.querySelector('.cont')
+
+    function mv() {
+      wrap.innerHTML = num++
+    }
+    function fd(item, time) { //全局触发
+      let timer
+      return function () { //实际上mousemove事件开始时触发的是这个
+        clearTimeout(timer)
+        timer = setTimeout(() => { //这里用箭头函数可以省去绑定This与event的步骤
+          item()
+        }, time)
+      }
+    }
+    wrap.onmousemove = fd(mv, 1000) //相当于fd()，已经调用了，实际上mousemove事件触发的是里面的return出去的函数
+
+    function fd2() {
+      console.log(this)
+    }
+    wrap.onmousemove = fd2() //window
 
   </script>
 </body>

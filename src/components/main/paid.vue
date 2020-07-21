@@ -1,5 +1,5 @@
 <template>
-  <!-- 待取件 -->
+  <!-- 已付款 -->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
@@ -14,15 +14,7 @@
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <el-button type="text" @click="sure(scope.row.id)">取件</el-button>
-          <el-button type="text" @click="cancel(scope.row.id)" style="color:red">取消订单</el-button>
-          <el-dialog title="取消原因" :visible.sync="cancelDialog" width="30%" :append-to-body="true">
-            
-            <span slot="footer" class="dialog-footer">
-              <el-button @click="cancelDialog = false">取 消</el-button>
-              <el-button type="primary" @click="cancelSure">确 定</el-button>
-            </span>
-          </el-dialog>
+          <payback :payBackId="scope.row.id"></payback>
         </template>
       </el-table-column>
     </el-table>
@@ -33,22 +25,20 @@
 <script>
 import { mapGetters } from "vuex";
 import checkPage from "../checkPage";
+import payback from "../payback";
 export default {
   props: [],
   components: {
-    checkPage
+    checkPage,
+    payback
   },
   data() {
     return {
       pageN: 0,
       requestData: {
         type: "",
-        state: "待取件"
-      },
-      // 取消的dialog
-      cancelDialog: false,
-      //取消的id
-      cancelId: 0
+        state: "paid"
+      }
     };
   },
   methods: {
@@ -56,36 +46,7 @@ export default {
     jumpPage(val) {
       console.log(val);
     },
-    //确认订单
-    sure(id) {
-      this.$confirm("是否确认订单?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "确认订单!" + id
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消"
-          });
-        });
-    },
-    //取消订单
-    cancel(id) {
-      this.cancelDialog = true;
-      this.cancelId = id;
-    },
-    //取消订单确认
-    cancelSure() {
-      this.cancelDialog = false;
-      console.log(this.cancelId);
-    },
+
     //初始化
     init() {
       switch (this.$route.name) {
@@ -102,6 +63,13 @@ export default {
           this.requestData.type = "another";
           break;
       }
+    //   let routeName = this.$route.name;
+    //   this.requestData.type =
+    //     (routeName == "jewelry" && "jewelry") ||
+    //     (routeName == "bags" && "bags") ||
+    //     (routeName == "watch" && "watch") ||
+    //     (routeName == "another" && "another");
+
     }
   },
   mounted() {

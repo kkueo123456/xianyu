@@ -1,5 +1,5 @@
 <template>
-  <!-- 待估价 -->
+  <!-- 待质检 -->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
@@ -8,7 +8,7 @@
       <el-table-column prop="user" label="用户" :span="2"></el-table-column>
       <el-table-column prop="time" label="创建时间" :span="2"></el-table-column>
       <el-table-column prop="price" label="预估价" :span="2"></el-table-column>
-      <el-table-column prop="state" label="订单状态" :span="2" sortable></el-table-column>
+      <el-table-column prop="state" label="订单状态" :span="2" :sortable="false"></el-table-column>
       <!-- <el-table-column label="调拨日期" :span="2">
         <template slot-scope="scope">{{scope.row.time|timeFilter}}</template>
       </el-table-column>-->
@@ -38,7 +38,7 @@ export default {
       pageN: 0,
       requestData: {
         type: "",
-        state: "gujia"
+        state: "zhijian"
       }
     };
   },
@@ -88,6 +88,8 @@ export default {
   },
   mounted() {
     this.init();
+    console.log(this.requestData);
+
   },
   watch: {},
   computed: {

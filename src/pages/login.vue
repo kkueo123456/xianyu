@@ -34,14 +34,20 @@ export default {
   },
   methods: {
     login() {
-      if (this.form.name == "" || this.form.password == "") {
-        this.$message({
-          message: "请输入账号或密码",
-          type: "error"
-        });
-      } else {
-        this.$router.push("/index");
-      }
+      this.form.name == "" || this.form.password == ""
+        ? this.$message({ message: "请输入账号或密码", type: "error" })
+        : this.push();
+      // if (this.form.name == "" || this.form.password == "") {
+      //   this.$message({
+      //     message: "请输入账号或密码",
+      //     type: "error"
+      //   });
+      // } else {
+      //   this.$router.push("/index");
+      // }
+    },
+    push() {
+      this.$router.push("/index");
     }
   },
   mounted() {},
@@ -80,7 +86,6 @@ export default {
   top: 0;
   bottom: 0;
   margin: auto;
-  
 }
 
 .log h3 {
@@ -108,5 +113,10 @@ export default {
 .form-button {
   width: 100%;
   text-align: center;
+}
+
+.form-button >>> .el-button--primary {
+  background-color: #333;
+  border-color: #333;
 }
 </style>

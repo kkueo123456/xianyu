@@ -7,14 +7,28 @@
   </div>
 </template>
 <script>
-import NavHead from "../components/head";
-import evaluate from "../components/main/evaluate";
-import made from "../components/main/made";
-import test from "../components/main/test";
-import back from "../components/main/back";
-import say from "../components/main/say";
-import success from "../components/main/success";
-import close from "../components/main/close";
+const NavHead = () => import("../components/head");
+const evaluate = () => import("../components/main/evaluate");
+const waitSure = () => import("../components/main/waitSure");
+//待取件
+const made = () => import("../components/main/made");
+//确认订单
+const pickUp = () => import("../components/main/pickUp");
+//已下单/付款
+const paid = () => import("../components/main/paid");
+// 已发货
+const delivered = () => import("../components/main/delivered");
+//待质检
+const test = () => import("../components/main/test");
+//待退货
+const back = () => import("../components/main/back");
+//待评价
+const say = () => import("../components/main/say");
+//交易完成
+const success = () => import("../components/main/success");
+//交易关闭
+const close = () => import("../components/main/close");
+
 export default {
   props: [],
   components: {
@@ -25,7 +39,11 @@ export default {
     back,
     say,
     success,
-    close
+    close,
+    delivered,
+    paid,
+    pickUp,
+    waitSure
   },
   data() {
     return {

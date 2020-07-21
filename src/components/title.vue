@@ -1,4 +1,5 @@
 <template>
+<!-- 标题及头像 -->
   <div class="headWrap">
     <div class="headSpace">
       <div class="headSpace-left">
