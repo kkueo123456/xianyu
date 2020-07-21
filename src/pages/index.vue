@@ -32,7 +32,7 @@ export default {
   display flex
 }
 .left{
-  width 250px
+  width 220px
 }
 .right {
   flex 1

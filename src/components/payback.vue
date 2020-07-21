@@ -1,38 +1,39 @@
 <template>
-<!-- 退款组件 -->
+  <!-- 退款组件 -->
   <div class="PayBackWrap">
     <el-button type="text" @click="payBack(payBackId)" style="color:red">退款</el-button>
+    <el-dialog title="退款原因" :visible.sync="payBackDialog" width="30%" :append-to-body="true">
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="payBackDialog = false">取 消</el-button>
+        <el-button type="primary" @click="payBackSure">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
 export default {
-  props: ['payBackId'],
+  props: ["payBackId"],
   components: {},
   data() {
-    return {};
+    return {
+      //退款dialog
+      payBackDialog: false,
+      // 退款id
+      BackId: 0
+    };
   },
   methods: {
     //退款
     payBack(id) {
-      this.$confirm("是否退款?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "退款成功!" + id
-          });
-          this.payBackState = false;
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消"
-          });
-        });
-        // this.$emit('changeState')
+      this.payBackDialog = true;
+      this.BackId = id;
+      // this.$emit('changeState')
+    },
+    payBackSure() {
+      console.log(this.BackId);
+      this.payBackDialog = false;
+
+      this.$emit("changeState");
     }
   },
   mounted() {},
@@ -41,7 +42,7 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-.PayBackWrap{
-  display inline-block
+.PayBackWrap {
+  display: inline-block;
 }
 </style>

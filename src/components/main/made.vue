@@ -1,5 +1,5 @@
 <template>
-  <!-- 待取件 -->
+  <!-- 待付款 -->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
@@ -14,7 +14,7 @@
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <el-button type="text" @click="sure(scope.row.id)">取件</el-button>
+          <el-button type="text" @click="sure(scope.row.id)">确认付款</el-button>
           <el-button type="text" @click="cancel(scope.row.id)" style="color:red">取消订单</el-button>
           <el-dialog title="取消原因" :visible.sync="cancelDialog" width="30%" :append-to-body="true">
             

@@ -1,5 +1,5 @@
 <template>
-  <!-- 已发货 -->
+  <!-- 待收货 -->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
@@ -14,9 +14,8 @@
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <payback :payBackId="scope.row.id"></payback>
-
-          <el-button type="text" @click="refund(scope.row.id)" :disabled="false">撤销</el-button>
+          <el-button type="text" @click="refund(scope.row.id)" :disabled="false">到货</el-button>
+          <payback :payBackId="scope.row.id" @changeState="init"></payback>
         </template>
       </el-table-column>
     </el-table>

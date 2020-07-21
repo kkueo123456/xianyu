@@ -8,42 +8,43 @@
 </template>
 <script>
 const NavHead = () => import("../components/head");
+//估价
 const evaluate = () => import("../components/main/evaluate");
+// 待确认
 const waitSure = () => import("../components/main/waitSure");
-//待取件
+//待付款
 const made = () => import("../components/main/made");
-//确认订单
-const pickUp = () => import("../components/main/pickUp");
-//已下单/付款
+//待取件
 const paid = () => import("../components/main/paid");
-// 已发货
+// 已取件
 const delivered = () => import("../components/main/delivered");
-//待质检
+//未质检
 const test = () => import("../components/main/test");
-//待退货
-const back = () => import("../components/main/back");
-//待评价
-const say = () => import("../components/main/say");
 //交易完成
 const success = () => import("../components/main/success");
+//待退货
+const back = () => import("../components/main/back");
+// 异常
+const unusual=()=>import('../components/main/unusual')
 //交易关闭
 const close = () => import("../components/main/close");
-
+//添加管理员
+const addAdmin = () => import("../components/main/addAdmin");
 export default {
   props: [],
   components: {
     NavHead,
     evaluate,
+    waitSure,
     made,
     test,
     back,
-    say,
     success,
     close,
     delivered,
     paid,
-    pickUp,
-    waitSure
+    unusual,
+    addAdmin
   },
   data() {
     return {

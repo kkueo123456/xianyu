@@ -1,16 +1,17 @@
 <template>
   <!-- 头部导航 -->
   <div class="head-wrap">
-    <el-menu default-active="1" class="el-menu-demo" mode="horizontal">
-      <el-menu-item
-        v-for="(item) in buttonList"
-        :key="item.buttonName"
-        :index="item.buttonIndex"
-        @click="changeView(item.buttonName)"
-      >
-        <el-badge :is-dot="item.isDot" class="item">{{item.buttonText}}</el-badge>
-      </el-menu-item>
-      <!-- <el-menu-item index="1" @click="changeView('evaluate')">
+    <el-scrollbar style="width:100%">
+      <el-menu default-active="1" class="el-menu-demo" mode="horizontal">
+        <el-menu-item
+          v-for="(item,index) in buttonList"
+          :key="item.buttonName"
+          :index="item.buttonIndex"
+          @click="changeView(item.buttonName)"
+        >
+          <el-badge :is-dot="false" class="item">{{item.buttonText}}</el-badge>
+        </el-menu-item>
+        <!-- <el-menu-item index="1" @click="changeView('evaluate')">
         <el-badge :is-dot="false" class="item">待估价</el-badge>
       </el-menu-item>
       <el-menu-item index="2" @click="changeView('made')">
@@ -36,8 +37,9 @@
       </el-menu-item>
       <el-menu-item index="9" @click="changeView('close')">
         <el-badge :is-dot="false" class="item">交易关闭</el-badge>
-      </el-menu-item>-->
-    </el-menu>
+        </el-menu-item>-->
+      </el-menu>
+    </el-scrollbar>
     <div class="line"></div>
   </div>
 </template>
@@ -51,7 +53,7 @@ export default {
         {
           buttonName: "evaluate",
           isDot: false,
-          buttonText: "待估价",
+          buttonText: "估价",
           buttonIndex: "1"
         },
         {
@@ -63,32 +65,32 @@ export default {
         {
           buttonName: "made",
           isDot: false,
-          buttonText: "待取件",
+          buttonText: "待付款",
           buttonIndex: "3"
         },
         {
-          buttonName: "pickUp",
-          isDot: false,
-          buttonText: "订单确认",
-          buttonIndex: "4"
-        },
-
-        {
           buttonName: "paid",
           isDot: false,
-          buttonText: "已下单/付款",
-          buttonIndex: "5"
+          buttonText: "待取件",
+          buttonIndex: "4"
         },
         {
           buttonName: "delivered",
           isDot: false,
-          buttonText: "已发货",
-          buttonIndex: "6"
+          buttonText: "待收货",
+          buttonIndex: "5"
         },
         {
           buttonName: "test",
           isDot: false,
-          buttonText: "待质检",
+          buttonText: "未质检",
+          buttonIndex: "6"
+        },
+
+        {
+          buttonName: "success",
+          isDot: false,
+          buttonText: "交易成功",
           buttonIndex: "7"
         },
         {
@@ -97,24 +99,31 @@ export default {
           buttonText: "待退货",
           buttonIndex: "8"
         },
-        {
-          buttonName: "say",
+         {
+          buttonName: "unusual",
           isDot: false,
-          buttonText: "待评价",
+          buttonText: "异常订单",
           buttonIndex: "9"
-        },
-        {
-          buttonName: "success",
-          isDot: false,
-          buttonText: "交易完成",
-          buttonIndex: "10"
         },
         {
           buttonName: "close",
           isDot: false,
           buttonText: "交易关闭",
-          buttonIndex: "11"
+          buttonIndex: "10"
         }
+      ],
+      trueList: [
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false
       ]
     };
   },
@@ -130,8 +139,8 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .head-wrap /deep/ .el-menu-demo {
-  display: flex;
-  justify-content: space-between;
+  display flex
+  justify-content space-between
 }
 
 .head-wrap /deep/ .el-badge__content {

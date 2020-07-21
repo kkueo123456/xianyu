@@ -15,7 +15,8 @@
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
           <evalDialiog :chuanId="scope.row.id" :state="false"></evalDialiog>
-          <el-button type="text" @click="back(scope.row.id)" style="color:red">退货</el-button>
+          <payback :payBackId="scope.row.id" @changeState="init"></payback>
+          <el-button type="text" style="color:red" @click="moneyBack(scope.row.id)">退货退款</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -27,11 +28,13 @@
 import { mapGetters } from "vuex";
 import evalDialiog from "../../components/evalDialog";
 import checkPage from "../checkPage";
+import payback from "../payback";
 export default {
   props: [],
   components: {
     evalDialiog,
-    checkPage
+    checkPage,
+    payback
   },
   data() {
     return {
@@ -47,9 +50,9 @@ export default {
     jumpPage(val) {
       console.log(val);
     },
-    //退回
-    back(id) {
-      this.$confirm("是否确认退回?", "提示", {
+    //退货退款
+    moneyBack(id) {
+      this.$confirm("是否退货退款?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -57,7 +60,7 @@ export default {
         .then(() => {
           this.$message({
             type: "success",
-            message: "退回成功!" + id
+            message: "确认退货退款!" + id
           });
         })
         .catch(() => {
@@ -89,7 +92,6 @@ export default {
   mounted() {
     this.init();
     console.log(this.requestData);
-
   },
   watch: {},
   computed: {

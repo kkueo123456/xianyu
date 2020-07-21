@@ -1,5 +1,5 @@
 <template>
-  <!-- 已付款 -->
+  <!-- 已付款/待取件 -->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
@@ -14,7 +14,8 @@
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <payback :payBackId="scope.row.id"></payback>
+          <el-button type="text" @click="pickUp(scope.row.id)">取件</el-button>
+          <payback :payBackId="scope.row.id" @changeState="init"></payback>
         </template>
       </el-table-column>
     </el-table>
@@ -46,7 +47,26 @@ export default {
     jumpPage(val) {
       console.log(val);
     },
-
+    //取件
+    pickUp(id) {
+      this.$confirm("确认取件?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$message({
+            type: "success",
+            message: "取件成功!" + id
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消"
+          });
+        });
+    },
     //初始化
     init() {
       switch (this.$route.name) {
@@ -63,13 +83,12 @@ export default {
           this.requestData.type = "another";
           break;
       }
-    //   let routeName = this.$route.name;
-    //   this.requestData.type =
-    //     (routeName == "jewelry" && "jewelry") ||
-    //     (routeName == "bags" && "bags") ||
-    //     (routeName == "watch" && "watch") ||
-    //     (routeName == "another" && "another");
-
+      //   let routeName = this.$route.name;
+      //   this.requestData.type =
+      //     (routeName == "jewelry" && "jewelry") ||
+      //     (routeName == "bags" && "bags") ||
+      //     (routeName == "watch" && "watch") ||
+      //     (routeName == "another" && "another");
     }
   },
   mounted() {

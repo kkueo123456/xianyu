@@ -1,5 +1,5 @@
 <template>
-  <!-- 确认订单 -->
+  <!-- 异常订单 -->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
@@ -13,7 +13,16 @@
         <template slot-scope="scope">{{scope.row.time|timeFilter}}</template>
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
-          <el-button type="text">付款并取件</el-button>
+        <template slot-scope="scope">
+          <el-button type="text" @click="change(scope.row.id)">修改原因</el-button>
+          <el-dialog title="修改退款原因" :visible.sync="changeDialog" width="30%" :append-to-body="true">
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="changeDialog = false">取 消</el-button>
+              <el-button type="primary" @click="changeDialogSure">确 定</el-button>
+            </span>
+          </el-dialog>
+          <el-button type="text" @click="cancel(scope.row.id)">撤销</el-button>
+        </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
@@ -33,14 +42,47 @@ export default {
       pageN: 0,
       requestData: {
         type: "",
-        state: "取件"
-      }
+        state: "gujia"
+      },
+      //修改的dialog
+      changeDialog: false,
+      //修改的id
+      changeDialogId: 0
     };
   },
   methods: {
     //跳页
     jumpPage(val) {
       console.log(val);
+    },
+    //撤销
+    cancel(id) {
+      this.$confirm("是否撤销?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$message({
+            type: "success",
+            message: "确认撤销!" + id
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消"
+          });
+        });
+    },
+    //修改原因
+    change(id) {
+      this.changeDialogId = id;
+      this.changeDialog = true;
+    },
+    //确定修改
+    changeDialogSure() {
+      this.changeDialog = false;
     },
     //初始化
     init() {
@@ -63,7 +105,6 @@ export default {
   },
   mounted() {
     this.init();
-    console.log(this.requestData)
   },
   watch: {},
   computed: {

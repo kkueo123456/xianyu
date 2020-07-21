@@ -21,6 +21,7 @@
   </div>
 </template>
 <script>
+import API from "../util/api";
 export default {
   props: [],
   components: {},
@@ -37,17 +38,29 @@ export default {
       this.form.name == "" || this.form.password == ""
         ? this.$message({ message: "请输入账号或密码", type: "error" })
         : this.push();
-      // if (this.form.name == "" || this.form.password == "") {
-      //   this.$message({
-      //     message: "请输入账号或密码",
-      //     type: "error"
-      //   });
-      // } else {
-      //   this.$router.push("/index");
-      // }
     },
     push() {
-      this.$router.push("/index");
+      this.$axios({
+        url: API.login,
+        method: "post",
+        params: {
+          loginName: this.form.name,
+          password: this.form.password
+        }
+      }).then(res => {
+        if (res.Status == "y") {
+          this.$message({
+            message: res.Msg,
+            type: "success"
+          });
+          this.$router.push("/index");
+        } else {
+          this.$message({
+            message: res.Msg,
+            type: "error"
+          });
+        }
+      });
     }
   },
   mounted() {},
