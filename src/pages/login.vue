@@ -53,6 +53,7 @@ export default {
             message: res.Msg,
             type: "success"
           });
+          sessionStorage.setItem("isAdmin", res.Data[0].adminId);
           this.$router.push("/index");
         } else {
           this.$message({
@@ -63,7 +64,9 @@ export default {
       });
     }
   },
-  mounted() {},
+  mounted() {
+
+  },
   watch: {},
   computed: {}
 };

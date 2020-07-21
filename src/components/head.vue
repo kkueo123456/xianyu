@@ -4,7 +4,7 @@
     <el-scrollbar style="width:100%">
       <el-menu default-active="1" class="el-menu-demo" mode="horizontal">
         <el-menu-item
-          v-for="(item,index) in buttonList"
+          v-for="(item) in buttonList"
           :key="item.buttonName"
           :index="item.buttonIndex"
           @click="changeView(item.buttonName)"
@@ -112,19 +112,7 @@ export default {
           buttonIndex: "10"
         }
       ],
-      trueList: [
-        true,
-        false,
-        true,
-        false,
-        true,
-        false,
-        true,
-        false,
-        true,
-        true,
-        false
-      ]
+ 
     };
   },
   methods: {

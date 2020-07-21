@@ -14,7 +14,7 @@
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <evalDialiog :chuanId="scope.row.id" :state="true"></evalDialiog>
+          <evalDialiog :chuanId="scope.row.id" :state="true" @changeState='init'></evalDialiog>
         </template>
       </el-table-column>
     </el-table>
@@ -23,6 +23,8 @@
   </div>
 </template>
 <script>
+import API from "../../util/api";
+
 import { mapGetters } from "vuex";
 import evalDialiog from "../../components/evalDialog";
 import checkPage from "../checkPage";
@@ -82,6 +84,7 @@ export default {
   mounted() {
     this.init();
     console.log(this.requestData);
+
   },
   watch: {},
   computed: {

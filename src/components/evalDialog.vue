@@ -12,6 +12,16 @@
           :preview-src-list="srcList"
         ></el-image>
       </div>
+      <div class="price-wrap">
+        <div class="allInput price-input">
+          <span>输入价格</span>
+          <el-input placeholder="请输入估价" v-model="evalInput" clearable :disabled="disable"></el-input>
+        </div>
+        <div class="no-price">
+          <el-radio v-model="PriceRadio" label="1" @change="isDisabled">暂无报价</el-radio>
+          <el-radio v-model="PriceRadio" label @change="isDisabled">有报价</el-radio>
+        </div>
+      </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="quxiao">取 消</el-button>
         <el-button @click="evalSure" v-if="state==true">确 定</el-button>
@@ -37,7 +47,13 @@ export default {
         "https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg",
         "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
         "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg"
-      ]
+      ],
+      //估价
+      evalInput: "",
+      // 估价input的状态
+      disable: false,
+      // 暂无报价
+      PriceRadio: ""
     };
   },
   methods: {
@@ -46,16 +62,39 @@ export default {
       this.skuId = id;
     },
     quxiao() {
+      //取消清空操作
+      this.evalInput = "";
+      this.PriceRadio = "";
       this.isShow = false;
+    },
+    //暂无报价控制Input
+    isDisabled() {
+      this.PriceRadio
+        ? ((this.disable = true), (this.evalInput = ""))
+        : (this.disable = false);
     },
     //估价确定
     evalSure() {
-      this.isShow = false;
+      if (this.evalInput == "" && this.PriceRadio == "") {
+        this.$message({
+          type: "error",
+          message: "缺少必填参数"
+        });
+      } else {
+        this.isShow = false;
+        this.$emit("changeState");
+      }
     },
     //质检确定
     testSure() {
-      this.isShow = false;
-      console.log(this.skuId,'质检')
+      if (this.evalInput == "" && this.PriceRadio == "") {
+        this.$message({
+          type: "error",
+          message: "缺少必填参数"
+        });
+      } else {
+        this.isShow = false;
+      }
     }
   },
   mounted() {},
@@ -73,5 +112,35 @@ export default {
   width: 100px;
   height: 100px;
   margin-left: 10px;
+}
+
+.price-wrap {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.allInput {
+}
+
+.no-price {
+  display: flex;
+  margin-left: 20px;
+  line-height: 40px;
+}
+
+.no-price /deep/ .el-radio {
+  line-height: 40px;
+}
+
+.price-input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price-input span {
+  width: 100px;
+  line-height: 40px;
 }
 </style>

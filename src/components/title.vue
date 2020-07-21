@@ -1,11 +1,11 @@
 <template>
-<!-- 标题及头像 -->
+  <!-- 标题及头像 -->
   <div class="headWrap">
     <div class="headSpace">
       <div class="headSpace-left">
         <h3>亮橙珍品科技有限公司</h3>
         <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item >首页</el-breadcrumb-item>
           <el-breadcrumb-item v-for="(item) in $route.meta" :key="item.name">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
@@ -23,6 +23,7 @@
   </div>
 </template>
 <script>
+import API from "../util/api";
 export default {
   props: [],
   components: {},
@@ -31,7 +32,25 @@ export default {
   },
   methods: {
     logOut() {
-      console.log("登出");
+      this.$axios({
+        url: API.logOut,
+        method: "get"
+      })
+        .then(res => {
+          if (res.Status == "y") {
+            this.$message({
+              message: res.Msg,
+              type: "success"
+            });
+            this.$router.push("/login");
+          }
+        })
+        .catch(err => {
+          this.$message({
+            message: err.Msg,
+            type: "success"
+          });
+        });
     }
   },
   mounted() {},

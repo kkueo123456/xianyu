@@ -16,6 +16,9 @@ import axios from 'axios'
 axios.interceptors.response.use(res => {
   console.log("---" + res.config.url + "--------")
   console.log(res.data)
+  if (res.data.data == -1) {
+    router.push('/login')
+  }
   return res.data;
 })
 //挂载store
@@ -26,6 +29,20 @@ for (var i in filters) {
   Vue.filter(i, filters[i])
 }
 Vue.prototype.$axios = axios;
+//路由守卫
+router.beforeEach((to, from, next) => {
+  let flag = sessionStorage.getItem('isAdmin')
+  if (flag) {
+    next()
+    return
+  } else if (to.path === '/login') {
+    next()
+    return
+  }
+  next('/login')
+
+  // flag && next() || to.path === '/login' && next() || next('/login')
+})
 //引入babel-polyfill
 import 'babel-polyfill'
 /* eslint-disable no-new */
@@ -33,6 +50,8 @@ new Vue({
   el: '#app',
   router,
   store,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })

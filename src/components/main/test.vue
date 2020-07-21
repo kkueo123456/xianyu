@@ -14,7 +14,7 @@
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <evalDialiog :chuanId="scope.row.id" :state="false"></evalDialiog>
+          <evalDialiog :chuanId="scope.row.id" :state="false" @changeState='init'></evalDialiog>
           <payback :payBackId="scope.row.id" @changeState="init"></payback>
           <el-button type="text" style="color:red" @click="moneyBack(scope.row.id)">退货退款</el-button>
         </template>
