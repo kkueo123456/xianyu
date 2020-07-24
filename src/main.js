@@ -30,19 +30,19 @@ for (var i in filters) {
 }
 Vue.prototype.$axios = axios;
 //路由守卫
-router.beforeEach((to, from, next) => {
-  let flag = sessionStorage.getItem('isAdmin')
-  if (flag) {
-    next()
-    return
-  } else if (to.path === '/login') {
-    next()
-    return
-  }
-  next('/login')
+// router.beforeEach((to, from, next) => {
+//   let flag = sessionStorage.getItem('isAdmin')
+//   if (flag) {
+//     next()
+//     return
+//   } else if (to.path === '/login') {
+//     next()
+//     return
+//   }
+//   next('/login')
 
-  // flag && next() || to.path === '/login' && next() || next('/login')
-})
+//   //  flag && next() || to.path === '/login' && next() || next('/login')
+// })
 //引入babel-polyfill
 import 'babel-polyfill'
 /* eslint-disable no-new */

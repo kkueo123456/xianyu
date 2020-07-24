@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import vuex from 'vuex'
+import API from '../util/api'
+import axios from 'axios'
 Vue.use(vuex)
 
 const state = {
@@ -155,7 +157,7 @@ const actions = {
 
     }, ]
     context.commit('mainData', data)
-  }
+  },
 }
 const getters = {
   data(state) {

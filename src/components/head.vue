@@ -99,7 +99,7 @@ export default {
           buttonText: "待退货",
           buttonIndex: "8"
         },
-         {
+        {
           buttonName: "unusual",
           isDot: false,
           buttonText: "异常订单",
@@ -110,9 +110,14 @@ export default {
           isDot: false,
           buttonText: "交易关闭",
           buttonIndex: "10"
+        },
+        {
+          buttonName: "waitClose",
+          isDot: false,
+          buttonText: "待关闭订单",
+          buttonIndex: "11"
         }
-      ],
- 
+      ]
     };
   },
   methods: {
@@ -127,8 +132,8 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .head-wrap /deep/ .el-menu-demo {
-  display flex
-  justify-content space-between
+  display: flex;
+  justify-content: space-between;
 }
 
 .head-wrap /deep/ .el-badge__content {

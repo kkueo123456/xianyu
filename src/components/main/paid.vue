@@ -83,17 +83,16 @@ export default {
           this.requestData.type = "another";
           break;
       }
-      //   let routeName = this.$route.name;
-      //   this.requestData.type =
-      //     (routeName == "jewelry" && "jewelry") ||
-      //     (routeName == "bags" && "bags") ||
-      //     (routeName == "watch" && "watch") ||
-      //     (routeName == "another" && "another");
+        // let routeName = this.$route.name;
+        // this.requestData.type =
+        //   (routeName == "jewelry" && "jewelry") ||
+        //   (routeName == "bags" && "bags") ||
+        //   (routeName == "watch" && "watch") ||
+        //   (routeName == "another" && "another");
     }
   },
   mounted() {
     this.init();
-    console.log(this.requestData);
   },
   watch: {},
   computed: {

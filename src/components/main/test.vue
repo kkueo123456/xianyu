@@ -91,7 +91,6 @@ export default {
   },
   mounted() {
     this.init();
-    console.log(this.requestData);
   },
   watch: {},
   computed: {

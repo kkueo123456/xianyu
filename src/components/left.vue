@@ -34,7 +34,7 @@ export default {
           num: 0
         }
       ],
-      numList: ["12", "7", "3", ""]
+      numList: []
     };
   },
   methods: {},
