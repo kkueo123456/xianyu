@@ -92,6 +92,7 @@
   </div>
 </template>
 <script>
+import API from "../util/api";
 export default {
   props: ["chuanId", "state"],
   components: {},
@@ -115,23 +116,23 @@ export default {
         //估价
         evalInput: "",
         // 暂无报价
-        PriceRadio: 1
+        PriceRadio: 1,
       },
       isShow: false,
-      skuId: 0,
+      skuId: "",
       url: [
         "https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg",
         "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
-        "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg"
+        "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
       ],
       srcList: [
         "https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg",
         "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
-        "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg"
+        "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
       ],
 
       // 估价input的状态
-      disable: false
+      disable: false,
     };
   },
   methods: {
@@ -156,13 +157,13 @@ export default {
       if (this.from.evalInput == "" && this.from.PriceRadio) {
         this.$message({
           type: "error",
-          message: "缺少必填参数"
+          message: "缺少必填参数",
         });
       } else {
         this.isShow = false;
         this.$message({
           type: "success",
-          message: "提交成功"
+          message: "提交成功",
         });
         this.$emit("changeState");
       }
@@ -172,21 +173,32 @@ export default {
       if (this.from.evalInput == "" && this.from.PriceRadio) {
         this.$message({
           type: "error",
-          message: "缺少必填参数"
+          message: "缺少必填参数",
         });
       } else {
         this.isShow = false;
-        this.$message({
-          type: "success",
-          message: "提交成功"
+        this.$axios({
+          url: API.orderPerform,
+          method: "post",
+          params: {
+            orderStatus: "3",
+            orderId: this.skuId,
+            confirmFee: this.from.evalInput,
+          },
+        }).then((res) => {
+          this.$message({
+            type: "success",
+            message: res.Msg,
+          });
+          this.isShow = false;
+          this.$emit("changeState");
         });
-        this.$emit("changeState");
       }
-    }
+    },
   },
   mounted() {},
   watch: {},
-  computed: {}
+  computed: {},
 };
 </script>
 <style lang="stylus" scoped>

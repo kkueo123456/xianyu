@@ -14,7 +14,7 @@
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <el-button type="text" @click="back(scope.row.id)" style="color:red">退货</el-button>
+          <el-button type="text" @click="back(scope.row.BizOrderId)" style="color:red">退货</el-button>
           <el-dialog title="收货地址" :visible.sync="backDialog" :append-to-body="true">
             <el-form :model="form">
               <el-form-item label="订单号">
@@ -39,7 +39,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <checkPage :pageNum="pageN" @jumpPage="jumpPage"></checkPage>
+    <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
   </div>
 </template>
 <script>
@@ -48,14 +48,14 @@ import checkPage from "../checkPage";
 export default {
   props: [],
   components: {
-    checkPage
+    checkPage,
   },
   data() {
     return {
       pageN: 0,
       requestData: {
-        type: "",
-        state: "gujia"
+        orderStatus: 100,
+        page: 1,
       },
       //存退回的id
       backId: 0,
@@ -68,17 +68,18 @@ export default {
         //订单号
         orderNum: 0,
         //客户电话
-        customerPhone: ""
+        customerPhone: "",
       },
       backDialog: false,
       //dialog里输入框长度
-      backLabelWidth: 120
+      backLabelWidth: 120,
     };
   },
   methods: {
     //跳页
     jumpPage(val) {
-      console.log(val);
+      this.requestData.page = val;
+      this.init();
     },
     //退回dialog
     back(id) {
@@ -100,13 +101,13 @@ export default {
       ) {
         this.$message({
           message: "缺少必填信息",
-          type: "error"
+          type: "error",
         });
       } else {
         this.backDialog = false;
         this.$message({
           message: "提交成功",
-          type: "success"
+          type: "success",
         });
         this.clearDialog();
       }
@@ -121,35 +122,21 @@ export default {
         //订单号
         orderNum: null,
         //客户电话
-        customerPhone: ""
+        customerPhone: "",
       };
     },
     //初始化
     init() {
-      switch (this.$route.name) {
-        case "jewelry":
-          this.requestData.type = "jewelry";
-          break;
-        case "bags":
-          this.requestData.type = "bags";
-          break;
-        case "watch":
-          this.requestData.type = "watch";
-          break;
-        case "another":
-          this.requestData.type = "another";
-          break;
-      }
-      // this.$store.dispatch("",this.requestData);
-    }
+      this.$store.dispatch("getOrderData", this.requestData);
+    },
   },
   mounted() {
     this.init();
   },
   watch: {},
   computed: {
-    ...mapGetters(["data"])
-  }
+    ...mapGetters(["data", "Pagelist"]),
+  },
 };
 </script>
 <style lang="stylus" scoped>

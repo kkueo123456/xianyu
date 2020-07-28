@@ -7,24 +7,23 @@
       <el-table-column prop="class" label="类别" :span="2"></el-table-column>
       <el-table-column prop="user" label="用户" :span="2"></el-table-column>
       <el-table-column prop="time" label="创建时间" :span="2"></el-table-column>
-      <el-table-column prop="price" label="预估价" :span="2"></el-table-column>
+      <el-table-column prop="Price" label="预估价" :span="2"></el-table-column>
       <el-table-column prop="state" label="订单状态" :span="2"></el-table-column>
       <!-- <el-table-column label="调拨日期" :span="2">
         <template slot-scope="scope">{{scope.row.time|timeFilter}}</template>
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <evalDialiog :chuanId="scope.row.id" :state="true" @changeState='init'></evalDialiog>
+          <evalDialiog :chuanId="scope.row.Id" :state="true" @changeState="init"></evalDialiog>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <checkPage :pageNum="pageN" @jumpPage="jumpPage"></checkPage>
+    <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
   </div>
 </template>
 <script>
 import API from "../../util/api";
-
 import { mapGetters } from "vuex";
 import evalDialiog from "../../components/evalDialog";
 import checkPage from "../checkPage";
@@ -32,62 +31,36 @@ export default {
   props: [],
   components: {
     evalDialiog,
-    checkPage
+    checkPage,
   },
   data() {
     return {
-      pageN: 0,
+      pageN: 1,
       requestData: {
-        type: "",
-        state: "gujia"
-      }
+        success: false,
+        page: 1,
+      },
     };
   },
   methods: {
     //跳页
     jumpPage(val) {
-      console.log(val);
+      this.requestData.page = val;
+      this.init();
     },
     //初始化
     init() {
-      //根据路由名做判断请求什么样的数据
       // 使用短路表达式
-      // this.requestData.type =
-      //   (this.$route.name == "jewelry" && "jewelry") ||
-      //   (this.$route.name == "bags" && "bags") ||
-      //   (this.$route.name == "watch" && "watch") ||
-      //   (this.$route.name == "another" && "another");
-      switch (this.$route.name) {
-        case "jewelry":
-          this.$store.dispatch("getEvlJewData");
-          this.pageN = this.data[0].pageNum;
-          this.requestData.type = "jewelry";
-          break;
-        case "bags":
-          this.$store.dispatch("getEvlBagData");
-          this.pageN = this.data[0].pageNum;
-          this.requestData.type = "bags";
-          break;
-        case "watch":
-          this.$store.dispatch("getEvlWatchData");
-          this.pageN = this.data[0].pageNum;
-          this.requestData.type = "watch";
-          break;
-        case "another":
-          this.$store.dispatch("getEvlAnotherData");
-          this.pageN = this.data[0].pageNum;
-          this.requestData.type = "another";
-          break;
-      }
-    }
+      this.$store.dispatch("getEvalData", this.requestData);
+    },
   },
   mounted() {
     this.init();
   },
   watch: {},
   computed: {
-    ...mapGetters(["data"])
-  }
+    ...mapGetters(["data", "Pagelist"]),
+  },
 };
 </script>
 <style lang="stylus" scoped>

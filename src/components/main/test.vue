@@ -14,14 +14,14 @@
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <evalDialiog :chuanId="scope.row.id" :state="false" @changeState='init'></evalDialiog>
-          <payback :payBackId="scope.row.id" @changeState="init"></payback>
-          <el-button type="text" style="color:red" @click="moneyBack(scope.row.id)">退货退款</el-button>
+          <evalDialiog :chuanId="scope.row.BizOrderId" :state="false" @changeState="init"></evalDialiog>
+          <payback :payBackId="scope.row.BizOrderId" @changeState="init"></payback>
+          <el-button type="text" style="color:red" @click="moneyBack(scope.row.BizOrderId)">退货退款</el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <checkPage :pageNum="pageN" @jumpPage="jumpPage"></checkPage>
+    <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
   </div>
 </template>
 <script>
@@ -34,68 +34,55 @@ export default {
   components: {
     evalDialiog,
     checkPage,
-    payback
+    payback,
   },
   data() {
     return {
       pageN: 0,
       requestData: {
-        type: "",
-        state: "zhijian"
-      }
+        orderStatus: 2,
+        page: 1,
+      },
     };
   },
   methods: {
     //跳页
     jumpPage(val) {
-      console.log(val);
+      this.requestData.page = val;
+      this.init();
     },
     //退货退款
     moneyBack(id) {
       this.$confirm("是否退货退款?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           this.$message({
             type: "success",
-            message: "确认退货退款!" + id
+            message: "确认退货退款!" + id,
           });
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消"
+            message: "已取消",
           });
         });
     },
     //初始化
     init() {
-      switch (this.$route.name) {
-        case "jewelry":
-          this.requestData.type = "jewelry";
-          break;
-        case "bags":
-          this.requestData.type = "bags";
-          break;
-        case "watch":
-          this.requestData.type = "watch";
-          break;
-        case "another":
-          this.requestData.type = "another";
-          break;
-      }
-      // this.$store.dispatch("",this.requestData);
-    }
+      this.$store.dispatch("getOrderData", this.requestData);
+    },
   },
   mounted() {
     this.init();
   },
   watch: {},
   computed: {
-    ...mapGetters(["data"])
-  }
+    ...mapGetters(["data", "Pagelist"]),
+  },
 };
 </script>
 <style lang="stylus" scoped>

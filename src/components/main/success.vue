@@ -11,9 +11,19 @@
       <el-table-column prop="state" label="订单状态" :span="2" :sortable="false"></el-table-column>
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <el-button type="text" @click="say(scope.row.id)">评价</el-button>
+          <el-button type="text" @click="say(scope.row.BizOrderId)">评价</el-button>
           <el-dialog title="输入评价" :visible.sync="sayDialog" width="30%" :append-to-body="true">
-            <el-input type="textarea" :rows="2" placeholder="请输入评价" v-model="sayMain"></el-input>
+            <el-radio-group v-model="sayRadio" style="margin-bottom:15px">
+              <el-radio :label="1">好评</el-radio>
+              <el-radio :label="2">中评</el-radio>
+            </el-radio-group>
+            <el-input
+              type="textarea"
+              placeholder="请输入评价"
+              v-model="sayMain"
+              maxlength="50"
+              show-word-limit
+            ></el-input>
             <span slot="footer" class="dialog-footer">
               <el-button @click="sayDialog = false">取 消</el-button>
               <el-button type="primary" @click="sayDialogSure">确 定</el-button>
@@ -23,7 +33,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <checkPage :pageNum="pageN" @jumpPage="jumpPage"></checkPage>
+    <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
   </div>
 </template>
 <script>
@@ -32,26 +42,29 @@ import checkPage from "../checkPage";
 export default {
   props: [],
   components: {
-    checkPage
+    checkPage,
   },
   data() {
     return {
       pageN: 0,
       requestData: {
-        type: "",
-        state: "gujia"
+        orderStatus: 4,
+        page: 1,
       },
       //评价的dialog
       sayDialog: false,
       // 评价内容
       sayMain: "",
-      sayId: 0
+      sayId: 0,
+      //评价选框
+      sayRadio:1
     };
   },
   methods: {
     //跳页
     jumpPage(val) {
-      console.log(val);
+      this.requestData.page = val;
+      this.init();
     },
     //评价的dialog
     say(id) {
@@ -59,35 +72,49 @@ export default {
       this.sayId = id;
     },
     sayDialogSure() {
-      this.sayDialog = false;
-      this.sayMain = "";
+      if (!this.sayMain) {
+        this.$message({
+          type: "error",
+          message: "缺少必填参数",
+        });
+      } else {
+        let orderPerformData = {
+          orderStatus: "7",
+          orderId: this.sayId,
+          rateContent: this.sayMain,
+          rateGrade:this.sayRadio
+        };
+        this.$store.dispatch("getOrderPerform", orderPerformData);
+        this.sayDialog = false;
+        this.init();
+      }
     },
     //初始化
     init() {
-      switch (this.$route.name) {
-        case "jewelry":
-          this.requestData.type = "jewelry";
-          break;
-        case "bags":
-          this.requestData.type = "bags";
-          break;
-        case "watch":
-          this.requestData.type = "watch";
-          break;
-        case "another":
-          this.requestData.type = "another";
-          break;
-      }
-      // this.$store.dispatch("",this.requestData);
-    }
+      // switch (this.$route.name) {
+      //   case "jewelry":
+      //     this.requestData.type = "jewelry";
+      //     break;
+      //   case "bags":
+      //     this.requestData.type = "bags";
+      //     break;
+      //   case "watch":
+      //     this.requestData.type = "watch";
+      //     break;
+      //   case "another":
+      //     this.requestData.type = "another";
+      //     break;
+      // }
+      this.$store.dispatch("getOrderData", this.requestData);
+    },
   },
   mounted() {
     this.init();
   },
   watch: {},
   computed: {
-    ...mapGetters(["data"])
-  }
+    ...mapGetters(["data", "Pagelist"]),
+  },
 };
 </script>
 <style lang="stylus" scoped>

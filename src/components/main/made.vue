@@ -1,5 +1,5 @@
 <template>
-  <!-- 待付款 -->
+  <!-- 已下单 -->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
@@ -14,10 +14,9 @@
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <el-button type="text" @click="sure(scope.row.id)">确认付款</el-button>
-          <el-button type="text" @click="cancel(scope.row.id)" style="color:red">取消订单</el-button>
-          <el-dialog title="取消原因" :visible.sync="cancelDialog" width="30%" :append-to-body="true">
-            <span>确认取消？</span>
+          <el-button type="text" @click="cancel(scope.row.BizOrderId)" style="color:red">取消订单</el-button>
+          <el-dialog title="填写原因" :visible.sync="cancelDialog" width="30%" :append-to-body="true">
+            <el-input placeholder="请输入原因" v-model="cancelInput" clearable></el-input>
             <span slot="footer" class="dialog-footer">
               <el-button @click="cancelDialog = false">取 消</el-button>
               <el-button type="primary" @click="cancelSure">确 定</el-button>
@@ -27,7 +26,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <checkPage :pageNum="pageN" @jumpPage="jumpPage"></checkPage>
+    <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
   </div>
 </template>
 <script>
@@ -36,46 +35,30 @@ import checkPage from "../checkPage";
 export default {
   props: [],
   components: {
-    checkPage
+    checkPage,
   },
   data() {
     return {
       pageN: 0,
       requestData: {
-        type: "",
-        state: "待取件"
+        orderStatus: 1,
+        page: 1,
       },
       // 取消的dialog
       cancelDialog: false,
       //取消的id
-      cancelId: 0
+      cancelId: 0,
+      //取消的填写原因,
+      cancelInput: "",
     };
   },
   methods: {
     //跳页
     jumpPage(val) {
-      console.log(val);
+      this.requestData.page = val;
+      this.init()
     },
-    //确认订单
-    sure(id) {
-      this.$confirm("是否确认订单?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "确认订单!" + id
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消"
-          });
-        });
-    },
+
     //取消订单
     cancel(id) {
       this.cancelDialog = true;
@@ -83,34 +66,34 @@ export default {
     },
     //取消订单确认
     cancelSure() {
-      this.cancelDialog = false;
-      console.log(this.cancelId);
+      if (!this.cancelInput) {
+        this.$message({
+          type: "error",
+          message: "缺少必填项",
+        });
+      } else {
+        this.cancelDialog = false;
+        let orderPerformData = {
+          orderStatus: "103",
+          reason: this.cancelInput,
+          orderId: this.cancelId,
+        };
+        this.$store.dispatch("getOrderPerform", orderPerformData);
+        this.init();
+      }
     },
     //初始化
     init() {
-      switch (this.$route.name) {
-        case "jewelry":
-          this.requestData.type = "jewelry";
-          break;
-        case "bags":
-          this.requestData.type = "bags";
-          break;
-        case "watch":
-          this.requestData.type = "watch";
-          break;
-        case "another":
-          this.requestData.type = "another";
-          break;
-      }
-    }
+      this.$store.dispatch("getOrderData", this.requestData);
+    },
   },
   mounted() {
     this.init();
   },
   watch: {},
   computed: {
-    ...mapGetters(["data"])
-  }
+    ...mapGetters(["data", "Pagelist"]),
+  },
 };
 </script>
 <style lang="stylus" scoped>

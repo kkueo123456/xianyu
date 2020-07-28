@@ -65,7 +65,7 @@ export default {
         {
           buttonName: "made",
           isDot: false,
-          buttonText: "待付款",
+          buttonText: "已下单",
           buttonIndex: "3"
         },
         {
@@ -74,12 +74,7 @@ export default {
           buttonText: "待取件",
           buttonIndex: "4"
         },
-        {
-          buttonName: "delivered",
-          isDot: false,
-          buttonText: "待收货",
-          buttonIndex: "5"
-        },
+    
         {
           buttonName: "test",
           isDot: false,

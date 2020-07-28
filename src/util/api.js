@@ -3,9 +3,16 @@ var baseUrl = '/api'
 const login = baseUrl + '/Login/AdminUserLogin'
 //登出
 const logOut = baseUrl + '/Login/AdminUserLogout'
-const cs = baseUrl + '/Login/LoginError'
+//估价的列表
+const evalList = baseUrl + '/interface/QuoteList'
+//订单的列表
+const orderList = baseUrl + '/interface/OrderList'
+//订单履约
+const orderPerform=baseUrl+'/interface/OrderPerform'
 export default {
   login,
   logOut,
-  cs
+  evalList,
+  orderList,
+  orderPerform
 }
