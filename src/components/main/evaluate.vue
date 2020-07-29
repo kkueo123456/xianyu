@@ -50,7 +50,7 @@ export default {
     },
     //初始化
     init() {
-      // 使用短路表达式
+ 
       this.$store.dispatch("getEvalData", this.requestData);
     },
   },

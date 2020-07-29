@@ -57,7 +57,7 @@ export default {
       sayMain: "",
       sayId: 0,
       //评价选框
-      sayRadio:1
+      sayRadio: 1,
     };
   },
   methods: {
@@ -79,14 +79,17 @@ export default {
         });
       } else {
         let orderPerformData = {
-          orderStatus: "7",
+          orderStatus: "6",
           orderId: this.sayId,
           rateContent: this.sayMain,
-          rateGrade:this.sayRadio
+          rateGrade: this.sayRadio,
         };
-        this.$store.dispatch("getOrderPerform", orderPerformData);
-        this.sayDialog = false;
-        this.init();
+        this.$store
+          .dispatch("getOrderPerform", orderPerformData)
+          .then((res) => {
+            this.sayDialog = false;
+            this.init();
+          });
       }
     },
     //初始化

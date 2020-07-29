@@ -30,7 +30,6 @@ export default {
   },
   data() {
     return {
-      pageN: 1,
       requestData: {
         orderStatus: 102,
         page: 1,

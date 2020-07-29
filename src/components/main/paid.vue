@@ -79,14 +79,15 @@ export default {
           message: "缺少必填项",
         });
       } else {
-        this.pickUpDialog = false;
         let orderPerformData = {
           orderStatus: "2",
           orderId: this.pickUpId,
           mailNo: this.pickUpInput,
         };
-        this.$store.dispatch("getOrderPerform", this.requestData);
-        this.init();
+        this.$store.dispatch("getOrderPerform", this.requestData).then(() => {
+          this.pickUpDialog = false;
+          this.init();
+        });
       }
     },
     //初始化

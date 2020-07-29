@@ -56,7 +56,7 @@ export default {
     //跳页
     jumpPage(val) {
       this.requestData.page = val;
-      this.init()
+      this.init();
     },
 
     //取消订单
@@ -72,14 +72,15 @@ export default {
           message: "缺少必填项",
         });
       } else {
-        this.cancelDialog = false;
         let orderPerformData = {
           orderStatus: "103",
           reason: this.cancelInput,
           orderId: this.cancelId,
         };
-        this.$store.dispatch("getOrderPerform", orderPerformData);
-        this.init();
+        this.$store.dispatch("getOrderPerform", orderPerformData).then(() => {
+          this.cancelDialog = false;
+          this.init();
+        });
       }
     },
     //初始化

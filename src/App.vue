@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style>
-
+.loading{
+  color: white !important;
+}
 </style>

@@ -3,6 +3,9 @@ import vuex from 'vuex'
 import API from '../util/api'
 import axios from 'axios'
 import {
+  Loading
+} from 'element-ui';
+import {
   Message
 } from 'element-ui'
 let $message = Message
@@ -36,27 +39,43 @@ const actions = {
   },
   //订单状态的请求
   getOrderData(context, requestData) {
+    let text = '请稍等数据加载'
+    let lod = Loading.service({
+      target: '.main',
+      text,
+    });
     axios({
       url: API.orderList,
       method: "post",
       params: requestData
     }).then(res => {
+      //close
+      lod.close()
       let data = {
         mainData: res.Data,
         pageData: res.ListCount
       }
       context.commit('mainData', data)
+
     }).catch(err => {
-      console.log(err)
+      //close
+      lod.close()
+
     })
   },
   //一些操作的请求
   getOrderPerform(context, orderPerformData) {
-    axios({
+    let lod = Loading.service({
+      text: '数据提交中',
+      spinner: 'el-icon-loading',
+    });
+    return axios({
       url: API.orderPerform,
       method: "post",
       params: orderPerformData
     }).then(res => {
+      //close
+      lod.close();
       if (res.Status == 'y') {
         $message({
           type: "success",
@@ -69,6 +88,8 @@ const actions = {
         })
       }
     }).catch(err => {
+      //close
+      lod.close();
       $message({
         type: "error",
         message: err.Msg

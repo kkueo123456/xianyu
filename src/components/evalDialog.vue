@@ -176,7 +176,6 @@ export default {
           message: "缺少必填参数",
         });
       } else {
-        this.isShow = false;
         this.$axios({
           url: API.orderPerform,
           method: "post",
@@ -186,11 +185,11 @@ export default {
             confirmFee: this.from.evalInput,
           },
         }).then((res) => {
+          this.isShow = false;
           this.$message({
             type: "success",
             message: res.Msg,
           });
-          this.isShow = false;
           this.$emit("changeState");
         });
       }
