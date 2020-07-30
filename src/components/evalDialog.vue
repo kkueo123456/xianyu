@@ -1,8 +1,8 @@
 <template>
   <!-- 估价的dialog -->
   <div class="dialogWrap">
-    <el-button type="text" @click="eval(chuanId)" v-if="state==true">估价</el-button>
-    <el-button type="text" @click="eval(chuanId)" v-if="state==false">质检</el-button>
+    <el-button type="text" @click="eval(chuanId)" v-if="state==false">估价</el-button>
+    <el-button type="text" @click="eval(chuanId)" v-if="state==true">质检</el-button>
     <el-dialog title="质检报告" :visible.sync="isShow" :modal-append-to-body="false">
       <div class="small-img">
         <el-image
@@ -17,7 +17,7 @@
         <div>成色：</div>
         <div class="allInput radios-wrap">
           <div class="radioGroup">
-            <el-radio-group v-model="from.colorRadio" size="mini">
+            <el-radio-group v-model="form.colorRadio" size="mini">
               <el-radio :label="0" border>99新</el-radio>
               <el-radio :label="1" border>98新</el-radio>
               <el-radio :label="2" border>95新</el-radio>
@@ -35,25 +35,25 @@
       <div class="price-wrap">
         <div class="allInput price-input">
           <span>染色</span>
-          <el-input placeholder="请输入" v-model="from.ranSe" clearable></el-input>
+          <el-input placeholder="请输入" v-model="form.ranSe" clearable></el-input>
         </div>
       </div>
       <div class="price-wrap">
         <div class="allInput price-input">
           <span>划痕</span>
-          <el-input placeholder="请输入" v-model="from.huaHen" clearable></el-input>
+          <el-input placeholder="请输入" v-model="form.huaHen" clearable></el-input>
         </div>
       </div>
       <div class="price-wrap">
         <div class="allInput price-input">
           <span>破损</span>
-          <el-input placeholder="请输入" v-model="from.poSun" clearable></el-input>
+          <el-input placeholder="请输入" v-model="form.poSun" clearable></el-input>
         </div>
       </div>
       <div class="price-wrap">
         <div class="allInput price-input">
           <span>磨损</span>
-          <el-input placeholder="请输入" v-model="from.moSun" clearable></el-input>
+          <el-input placeholder="请输入" v-model="form.moSun" clearable></el-input>
         </div>
       </div>
       <!-- 附件 -->
@@ -63,30 +63,40 @@
       <div class="price-wrap">
         <div class="allInput price-input">
           <span>有</span>
-          <el-input placeholder="请输入" v-model="from.has" clearable></el-input>
+          <el-input placeholder="请输入" v-model="form.has" clearable></el-input>
         </div>
       </div>
       <div class="price-wrap">
         <div class="allInput price-input">
           <span>无</span>
-          <el-input placeholder="请输入" v-model="from.no" clearable></el-input>
+          <el-input placeholder="请输入" v-model="form.no" clearable></el-input>
         </div>
       </div>
       <!-- 价格 -->
       <div class="price-wrap">
         <div class="allInput price-input">
           <span>输入价格</span>
-          <el-input placeholder="请输入" v-model="from.evalInput" clearable :disabled="disable"></el-input>
+          <el-input placeholder="请输入" v-model="form.evalInput" clearable :disabled="disable"></el-input>
         </div>
         <div class="no-price">
-          <el-radio v-model="from.PriceRadio" :label="0" @change="isDisabled">暂无报价</el-radio>
-          <el-radio v-model="from.PriceRadio" :label="1" @change="isDisabled">有报价</el-radio>
+          <el-radio v-model="form.PriceRadio" :label="0" @change="isDisabled" :disabled="state">暂无报价</el-radio>
+          <el-radio v-model="form.PriceRadio" :label="1" @change="isDisabled">有报价</el-radio>
         </div>
+      </div>
+      <div class="price-wrap">
+          <span style="line-height:50px">质检结果</span>
+          <el-input
+            type="textarea"
+            placeholder="请输入质检结果"
+            v-model="form.sayMain"
+            maxlength="50"
+            show-word-limit
+          ></el-input>
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="quxiao">取 消</el-button>
-        <el-button @click="evalSure" v-if="state==true">确 定</el-button>
-        <el-button @click="testSure" v-if="state==false">确 定</el-button>
+        <el-button @click="evalSure" v-if="state==false">确 定</el-button>
+        <el-button @click="testSure" v-if="state==true">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -98,7 +108,7 @@ export default {
   components: {},
   data() {
     return {
-      from: {
+      form: {
         //成色的radio
         colorRadio: 0,
         //染色
@@ -117,6 +127,8 @@ export default {
         evalInput: "",
         // 暂无报价
         PriceRadio: 1,
+        //文本
+        sayMain: "",
       },
       isShow: false,
       skuId: "",
@@ -148,13 +160,13 @@ export default {
     },
     //暂无报价控制Input
     isDisabled() {
-      !this.from.PriceRadio
-        ? ((this.disable = true), (this.from.evalInput = ""))
+      !this.form.PriceRadio
+        ? ((this.disable = true), (this.form.evalInput = ""))
         : (this.disable = false);
     },
     //估价确定
     evalSure() {
-      if (this.from.evalInput == "" && this.from.PriceRadio) {
+      if (this.form.evalInput == "" && this.form.PriceRadio) {
         this.$message({
           type: "error",
           message: "缺少必填参数",
@@ -168,9 +180,10 @@ export default {
         this.$emit("changeState");
       }
     },
+
     //质检确定
     testSure() {
-      if (this.from.evalInput == "" && this.from.PriceRadio) {
+      if (this.form.evalInput == "" && this.form.PriceRadio) {
         this.$message({
           type: "error",
           message: "缺少必填参数",
@@ -180,9 +193,9 @@ export default {
           url: API.orderPerform,
           method: "post",
           params: {
-            orderStatus: "3",
+            orderStatus: "5",
             orderId: this.skuId,
-            confirmFee: this.from.evalInput,
+            confirmFee: this.form.evalInput,
           },
         }).then((res) => {
           this.isShow = false;
@@ -266,5 +279,10 @@ export default {
 .price-input span {
   width: 100px;
   line-height: 40px;
+}
+
+.price-wrap /deep/ .el-textarea {
+  width: 50%;
+  padding-left 18px
 }
 </style>

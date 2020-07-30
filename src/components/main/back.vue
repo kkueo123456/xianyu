@@ -17,18 +17,18 @@
           <el-button type="text" @click="back(scope.row.BizOrderId)" style="color:red">退货</el-button>
           <el-dialog title="收货地址" :visible.sync="backDialog" :append-to-body="true">
             <el-form :model="form">
-              <el-form-item label="订单号">
+              <!-- <el-form-item label="订单号">
                 <el-input v-model="form.orderNum"></el-input>
               </el-form-item>
               <el-form-item label="快递公司">
                 <el-input v-model="form.company"></el-input>
-              </el-form-item>
+              </el-form-item>-->
               <el-form-item label="运单号">
                 <el-input v-model="form.WaybillNum"></el-input>
               </el-form-item>
-              <el-form-item label="客户电话">
+              <!-- <el-form-item label="客户电话">
                 <el-input v-model="form.customerPhone" type="phone"></el-input>
-              </el-form-item>
+              </el-form-item>-->
             </el-form>
             <div slot="footer" class="dialog-footer">
               <el-button @click="cancleDialog">取 消</el-button>
@@ -61,14 +61,14 @@ export default {
       backId: 0,
       //退回传的值
       form: {
-        //快递公司
-        company: "",
+        // //快递公司
+        // company: "",
         //运单号
         WaybillNum: "",
-        //订单号
-        orderNum: 0,
-        //客户电话
-        customerPhone: "",
+        // //订单号
+        // orderNum: 0,
+        // //客户电话
+        // customerPhone: "",
       },
       backDialog: false,
       //dialog里输入框长度
@@ -94,35 +94,39 @@ export default {
     //退回确定
     backDialogSure() {
       if (
-        this.form.company == "" ||
-        this.form.WaybillNum == "" ||
-        this.form.customerPhone == "" ||
-        this.form.orderNum == ""
+        // this.form.company == "" ||
+        this.form.WaybillNum == ""
+        // this.form.customerPhone == "" ||
+        // this.form.orderNum == ""
       ) {
         this.$message({
           message: "缺少必填信息",
           type: "error",
         });
       } else {
-        this.backDialog = false;
-        this.$message({
-          message: "提交成功",
-          type: "success",
+        let orderPerformData = {
+          orderStatus: "101",
+          reason: this.form.WaybillNum,
+          orderId: this.backId,
+        };
+        this.$store.dispatch("getOrderPerform", orderPerformData).then(() => {
+          this.backDialog = false;
+          this.init();
+          this.clearDialog();
         });
-        this.clearDialog();
       }
     },
     //清空输入框
     clearDialog() {
       this.form = {
         //快递公司
-        company: "",
+        // company: "",
         //运单号
         WaybillNum: "",
-        //订单号
-        orderNum: null,
-        //客户电话
-        customerPhone: "",
+        // //订单号
+        // orderNum: null,
+        // //客户电话
+        // customerPhone: "",
       };
     },
     //初始化
