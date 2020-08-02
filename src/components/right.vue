@@ -18,7 +18,9 @@ export default {
     return {};
   },
   methods: {},
-  mounted() {},
+  mounted() {
+
+  },
   watch: {},
   computed: {}
 };

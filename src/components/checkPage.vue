@@ -4,7 +4,7 @@
     <el-pagination
       background
       layout="prev, pager, next,jumper"
-      :total="pageNum"
+      :total="page"
       :page-size="1"
       class="pageButton"
       :current-page.sync="currentPage3"
@@ -24,11 +24,15 @@ export default {
   methods: {
     handleCurrentChange(val) {
       this.$emit("jumpPage", val);
-    }
+    },
   },
   mounted() {},
   watch: {},
-  computed: {}
+  computed: {
+    page() {
+      return Math.ceil(this.pageNum / 10);
+    },
+  },
 };
 </script>
 <style scoped>

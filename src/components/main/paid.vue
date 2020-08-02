@@ -14,7 +14,7 @@
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <el-button type="text" @click="pickUp(scope.row.BizOrderId)">取件</el-button>
+          <el-button type="text" @click="pickUp(scope.row.OrderId)">取件</el-button>
           <el-dialog
             title="输入快递公司单号"
             :visible.sync="pickUpDialog"
@@ -84,7 +84,7 @@ export default {
           orderId: this.pickUpId,
           mailNo: this.pickUpInput,
         };
-        this.$store.dispatch("getOrderPerform", this.requestData).then(() => {
+        this.$store.dispatch("getOrderPerform", orderPerformData).then(() => {
           this.pickUpDialog = false;
           this.init();
         });

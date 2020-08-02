@@ -35,7 +35,7 @@ export default new Router({
           path: 'watch',
           component: watch,
           name:'watch',
-          meta: ['手表']
+          meta: ['腕表']
         }, {
           path: 'another',
           component: another,

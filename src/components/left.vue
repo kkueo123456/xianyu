@@ -1,9 +1,9 @@
 <template>
-<!-- 左侧导航栏 -->
+  <!-- 左侧导航栏 -->
   <div class="wrap">
     <el-col :span="24">
       <h3>LiangCheng</h3>
-      <el-menu default-active="2" class="el-menu-vertical-demo" :router="true">
+      <el-menu default-active="1" class="el-menu-vertical-demo" :router="true">
         <el-menu-item v-for="(item,i) in navList" :index="item.name" :key="i" mode="horizontal">
           <i :class="[item.ico]"></i>
           <el-badge :value="item.num[i]" class="item">{{item.navItem}}</el-badge>
@@ -19,32 +19,44 @@ export default {
   data() {
     return {
       navList: [
-        { name: "/index/jewelry", navItem: "首饰", ico: "el-icon-key", num: 0 },
-        { name: "/index/bags", navItem: "箱包", ico: "el-icon-goods", num: 0 },
+        {
+          name: "/index/jewelry",
+          navItem: "首饰",
+          ico: "el-icon-key",
+          num: 0,
+        },
+        {
+          name: "/index/bags",
+          navItem: "箱包",
+          ico: "el-icon-goods",
+          num: 0,
+        },
         {
           name: "/index/watch",
           navItem: "腕表",
           ico: "el-icon-watch-1",
-          num: 0
+          num: 0,
         },
         {
           name: "/index/another",
           navItem: "其他",
           ico: "el-icon-potato-strips",
-          num: 0
-        }
+          num: 0,
+        },
       ],
-      numList: []
+      numList: [],
     };
   },
-  methods: {},
+  methods: {
+  
+  },
   mounted() {
-    this.navList.forEach(item => {
+    this.navList.forEach((item) => {
       item.num = this.numList;
     });
   },
   watch: {},
-  computed: {}
+  computed: {},
 };
 </script>
 <style lang="stylus" scoped>

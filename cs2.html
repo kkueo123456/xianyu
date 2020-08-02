@@ -15,8 +15,8 @@
   <script>
     // var data =1
     // data && data == 1 ? console.log('嘿嘿嘿') : console.log('sb')
-    var Abc = document.querySelector('.abc')
-    console.log(Abc)
+    let re = /^(([1-9]{1}\d{0,8})|(0{1}))(\.\d{0,2})?$/;
+    console.log(re.test(123456789));
 
   </script>
 </body>

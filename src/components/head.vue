@@ -79,12 +79,12 @@ export default {
           buttonText: "交易关闭",
           buttonIndex: "10"
         },
-        {
-          buttonName: "waitClose",
-          isDot: false,
-          buttonText: "待关闭订单",
-          buttonIndex: "11"
-        }
+        // {
+        //   buttonName: "waitClose",
+        //   isDot: false,
+        //   buttonText: "待关闭订单",
+        //   buttonIndex: "11"
+        // }
       ]
     };
   },

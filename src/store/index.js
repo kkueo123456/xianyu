@@ -23,17 +23,26 @@ const mutations = {
 const actions = {
   //估价请求
   getEvalData(context, requestData) {
+    let text = '请稍等数据加载'
+    let lod = Loading.service({
+      target: '.main',
+      text,
+    });
     axios({
       url: API.evalList,
       method: "post",
       params: requestData
     }).then(res => {
+      //close
+      lod.close()
       let data = {
         mainData: res.Data,
         pageData: res.ListCount
       }
       context.commit('mainData', data)
     }).catch(err => {
+      //close
+      lod.close()
       console.log(err)
     })
   },

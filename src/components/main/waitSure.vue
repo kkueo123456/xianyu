@@ -1,20 +1,14 @@
 <template>
   <!-- 待客户确认 -->
   <div class="table">
-    <el-table :data="data">
-      <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
+    <el-table :data="data" >
+      <el-table-column prop="QuoteId" label="估价编号" :span="2" ></el-table-column>
       <el-table-column prop="pin" label="品牌" :span="2"></el-table-column>
       <el-table-column prop="class" label="类别" :span="2"></el-table-column>
-      <el-table-column prop="user" label="用户" :span="2"></el-table-column>
-      <el-table-column prop="time" label="创建时间" :span="2"></el-table-column>
+      <!-- <el-table-column prop="user" label="用户" :span="2"></el-table-column> -->
+      <el-table-column label="创建时间" prop="CreateTime" :span="2" sortable>
+      </el-table-column>
       <el-table-column prop="Price" label="预估价" :span="2"></el-table-column>
-      <el-table-column prop="state" label="订单状态" :span="2" :sortable="false"></el-table-column>
-      <!-- <el-table-column label="调拨日期" :span="2">
-        <template slot-scope="scope">{{scope.row.time|timeFilter}}</template>
-      </el-table-column>-->
-      <!-- <el-table-column fixed="right" label="操作" :span="2">
-          <el-button type="text">已取件</el-button>
-      </el-table-column>-->
     </el-table>
     <!-- 分页 -->
     <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
@@ -32,7 +26,7 @@ export default {
     return {
       pageN: 0,
       requestData: {
-        success: true,
+        IsPrice: 1,
         page: 1,
       },
     };

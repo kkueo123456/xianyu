@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App",
+  mounted() {
+  },
+};
 </script>
 
 <style>
-.loading{
+.loading {
   color: white !important;
 }
 </style>

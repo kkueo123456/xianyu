@@ -2,23 +2,23 @@
   <!-- 待估价 -->
   <div class="table">
     <el-table :data="data">
-      <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
+      <el-table-column prop="QuoteId" label="估价编号" :span="2"></el-table-column>
       <el-table-column prop="pin" label="品牌" :span="2"></el-table-column>
       <el-table-column prop="class" label="类别" :span="2"></el-table-column>
-      <el-table-column prop="user" label="用户" :span="2"></el-table-column>
-      <el-table-column label="创建时间" :span="2">
-        <template slot-scope="scope">{{scope.row.CreateTime}}</template>
-      </el-table-column>
+      <!-- <el-table-column prop="user" label="用户" :span="2"></el-table-column> -->
+      <el-table-column prop="CreateTime" label="创建时间" sortable :span="2"></el-table-column>
       <el-table-column label="报价截止" :span="2">
         <template slot-scope="scope">{{scope.row.TimeLimit|transTime}}</template>
       </el-table-column>
-      <!-- <el-table-column prop="time" label="创建时间" :span="2"></el-table-column> -->
       <el-table-column prop="Price" label="预估价" :span="2"></el-table-column>
-      <el-table-column prop="state" label="订单状态" :span="2"></el-table-column>
-
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <evalDialiog :chuanId="scope.row.Id" :state="false" @changeState="init"></evalDialiog>
+          <evalDialiog
+            :chuanId="scope.row.QuoteId"
+            :chuanImg="scope.row.Questionnaire"
+            :state="false"
+            @changeState="init"
+          ></evalDialiog>
         </template>
       </el-table-column>
     </el-table>
@@ -41,7 +41,7 @@ export default {
     return {
       pageN: 1,
       requestData: {
-        success: false,
+        IsPrice: 0,
         page: 1,
       },
     };

@@ -48,7 +48,7 @@ export default {
     return {
       pageN: 0,
       requestData: {
-        orderStatus: 4,
+        orderStatus: "4",
         page: 1,
       },
       //评价的dialog

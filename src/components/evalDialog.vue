@@ -1,7 +1,7 @@
 <template>
   <!-- 估价的dialog -->
   <div class="dialogWrap">
-    <el-button type="text" @click="eval(chuanId)" v-if="state==false">估价</el-button>
+    <el-button type="text" @click="eval(chuanId,chuanImg)" v-if="state==false">估价</el-button>
     <el-button type="text" @click="eval(chuanId)" v-if="state==true">质检</el-button>
     <el-dialog title="质检报告" :visible.sync="isShow" :modal-append-to-body="false">
       <div class="small-img">
@@ -13,18 +13,21 @@
         ></el-image>
       </div>
       <!-- 成色 -->
-      <div class="price-wrap">
-        <div>成色：</div>
-        <div class="allInput radios-wrap">
-          <div class="radioGroup">
-            <el-radio-group v-model="form.colorRadio" size="mini">
-              <el-radio :label="0" border>99新</el-radio>
-              <el-radio :label="1" border>98新</el-radio>
-              <el-radio :label="2" border>95新</el-radio>
-              <el-radio :label="3" border>90新</el-radio>
-              <el-radio :label="4" border>85新</el-radio>
-              <el-radio :label="5" border>80新</el-radio>
-            </el-radio-group>
+      <div class="color-price-wrap">
+        <div class="color-radio-wrap">
+          <div class="allInput radios-wrap">
+            <div>成色：</div>
+            <div class="radioGroup">
+              <el-radio-group v-model="form.colorRadio" size="mini">
+                <el-radio label="99新" border>99新</el-radio>
+                <el-radio label="98新" border>98新</el-radio>
+                <el-radio label="95新" border>95新</el-radio>
+                <el-radio label="90新" border>90新</el-radio>
+                <el-radio label="85新" border>85新</el-radio>
+                <el-radio label="80新" border>80新</el-radio>
+                <el-radio label="无" border>无</el-radio>
+              </el-radio-group>
+            </div>
           </div>
         </div>
       </div>
@@ -75,7 +78,9 @@
       <!-- 价格 -->
       <div class="price-wrap">
         <div class="allInput price-input">
-          <span>输入价格</span>
+          <span>
+            <b style="color:red">*</b>输入价格
+          </span>
           <el-input placeholder="请输入" v-model="form.evalInput" clearable :disabled="disable"></el-input>
         </div>
         <div class="no-price">
@@ -84,15 +89,39 @@
         </div>
       </div>
       <div class="price-wrap">
-          <span style="line-height:50px">质检结果</span>
-          <el-input
-            type="textarea"
-            placeholder="请输入质检结果"
-            v-model="form.sayMain"
-            maxlength="50"
-            show-word-limit
-          ></el-input>
+        <span style="line-height:50px">
+          <b style="color:red">*</b>评估结果
+        </span>
+        <el-input
+          type="textarea"
+          placeholder="请输入质检结果"
+          v-model="form.sayMain"
+          maxlength="50"
+          show-word-limit
+        ></el-input>
       </div>
+      <div class="price-wrap" v-if="state==true">
+        <span style="line-height:50px">
+          <b style="color:red">*</b>评估描述
+        </span>
+        <el-input
+          type="textarea"
+          placeholder="请输入描述"
+          v-model="form.desc"
+          maxlength="50"
+          show-word-limit
+        ></el-input>
+      </div>
+      <!-- 我方上传图片 -->
+      <el-upload
+        :action="imgApi"
+        list-type="picture-card"
+        :on-remove="handleRemove"
+        :on-success="handleSuccess"
+        :limit="3"
+      >
+        <i class="el-icon-plus"></i>
+      </el-upload>
       <div slot="footer" class="dialog-footer">
         <el-button @click="quxiao">取 消</el-button>
         <el-button @click="evalSure" v-if="state==false">确 定</el-button>
@@ -103,14 +132,15 @@
 </template>
 <script>
 import API from "../util/api";
+import { Loading } from "element-ui";
 export default {
-  props: ["chuanId", "state"],
+  props: ["chuanId", "state", "chuanImg"],
   components: {},
   data() {
     return {
       form: {
         //成色的radio
-        colorRadio: 0,
+        colorRadio: "无",
         //染色
         ranSe: "",
         //划痕
@@ -128,32 +158,42 @@ export default {
         // 暂无报价
         PriceRadio: 1,
         //文本
-        sayMain: "",
+        sayMain: "以上为参考价格，具体以实物鉴定为准。若下单邮寄，邮费到付",
+        //描述
+        desc: "",
       },
       isShow: false,
       skuId: "",
-      url: [
-        "https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg",
-        "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
-        "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
-      ],
-      srcList: [
-        "https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg",
-        "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
-        "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
-      ],
+      srcList: null,
 
       // 估价input的状态
       disable: false,
+      //图片
+      dialogImageUrl: "",
+      dialogVisible: false,
+      disabled: false,
+      //图片上传请求的接口
+      imgApi: API.orderPic,
+      imgList: null,
     };
   },
   methods: {
-    eval(id) {
+    eval(id, chuanImg) {
       this.isShow = true;
       this.skuId = id;
+      //解析图片
+      if (chuanImg) {
+        let img = JSON.parse(chuanImg).questions;
+        let imgArr = img.map((item) => {
+          return item.answers[0].name;
+        });
+        this.srcList = imgArr;
+      }
+
+      console.log(id);
     },
     quxiao() {
-      //取消清空操作
+      //取消的清空操作
       this.evalInput = "";
       this.PriceRadio = "";
       this.isShow = false;
@@ -161,51 +201,89 @@ export default {
     //暂无报价控制Input
     isDisabled() {
       !this.form.PriceRadio
-        ? ((this.disable = true), (this.form.evalInput = ""))
+        ? ((this.disable = true), (this.form.evalInput = "0.01"))
         : (this.disable = false);
     },
     //估价确定
     evalSure() {
-      if (this.form.evalInput == "" && this.form.PriceRadio) {
-        this.$message({
-          type: "error",
-          message: "缺少必填参数",
-        });
-      } else {
-        this.isShow = false;
-        this.$message({
-          type: "success",
-          message: "提交成功",
-        });
-        this.$emit("changeState");
-      }
+      let evalData = {
+        quoteId: this.skuId,
+        price: this.form.evalInput,
+        summary: this.form.sayMain,
+        degree: this.form.colorRadio,
+      };
+     this.surePublic(evalData)
     },
 
     //质检确定
     testSure() {
-      if (this.form.evalInput == "" && this.form.PriceRadio) {
+      let testExplanation = {
+        desc: this.form.desc,
+        images: this.imgList,
+      };
+      let testData = {
+        orderId: this.skuId,
+        price: this.form.evalInput,
+        summary: this.form.sayMain,
+        explanation: JSON.stringify(testExplanation),
+        degree: this.form.colorRadio,
+      };
+      this.surePublic(testData);
+    },
+    surePublic(data) {
+      //最大9位 最多保留两位小数点
+      let re = /^(([1-9]{1}\d{0,7})|(0{1}))(\.\d{0,2})?$/;
+
+      if (
+        (this.form.evalInput == "" && this.form.PriceRadio) ||
+        !re.test(this.form.evalInput)
+      ) {
         this.$message({
           type: "error",
-          message: "缺少必填参数",
+          message: "请输入正确的价格",
         });
       } else {
-        this.$axios({
-          url: API.orderPerform,
-          method: "post",
-          params: {
-            orderStatus: "5",
-            orderId: this.skuId,
-            confirmFee: this.form.evalInput,
-          },
-        }).then((res) => {
-          this.isShow = false;
-          this.$message({
-            type: "success",
-            message: res.Msg,
-          });
-          this.$emit("changeState");
+        let lod = Loading.service({
+          text: "请稍等数据加载",
         });
+        this.$axios({
+          url: API.evalDoing,
+          method: "post",
+          params: data,
+        })
+          .then((res) => {
+            //close
+            lod.close();
+            this.isShow = false;
+            res.Status == "y"
+              ? this.$message({
+                  type: "success",
+                  message: res.Msg,
+                })
+              : this.$message({
+                  type: "error",
+                  message: res.Msg,
+                });
+            this.$emit("changeState");
+          })
+          .catch((err) => {
+            //close
+            lod.close();
+            console.log(err)
+          });
       }
+    },
+    //我方上传图片相关
+    //删除
+    handleRemove(file) {
+      console.log(file);
+    },
+
+    handleSuccess(response, file, fileList) {
+      // 将图片url转成数组
+      this.imgList = fileList.map((item) => {
+        return item.response.Data[0];
+      });
     },
   },
   mounted() {},
@@ -226,6 +304,17 @@ export default {
 }
 
 // 单选
+.color-price-wrap {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.color-radio-wrap {
+  margin: 0 auto;
+  display: flex;
+  text-align: center;
+}
+
 .radios-wrap {
   display: flex;
   margin: 0 auto;
@@ -283,6 +372,6 @@ export default {
 
 .price-wrap /deep/ .el-textarea {
   width: 50%;
-  padding-left 18px
+  margin-left: 13px;
 }
 </style>
