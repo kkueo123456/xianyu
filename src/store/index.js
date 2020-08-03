@@ -21,7 +21,7 @@ const mutations = {
   }
 }
 const actions = {
-  //估价请求
+  //估价与待客户确认列表请求
   getEvalData(context, requestData) {
     let text = '请稍等数据加载'
     let lod = Loading.service({
@@ -46,7 +46,7 @@ const actions = {
       console.log(err)
     })
   },
-  //订单状态的请求
+  //订单履约列表的请求
   getOrderData(context, requestData) {
     let text = '请稍等数据加载'
     let lod = Loading.service({
@@ -72,7 +72,7 @@ const actions = {
 
     })
   },
-  //一些操作的请求
+  //一些订单履约操作的请求
   getOrderPerform(context, orderPerformData) {
     let lod = Loading.service({
       text: '数据提交中',

@@ -7,7 +7,7 @@
       <el-table-column prop="class" label="类别" :span="2"></el-table-column>
       <el-table-column prop="user" label="用户" :span="2"></el-table-column>
       <el-table-column prop="time" label="创建时间" :span="2"></el-table-column>
-      <el-table-column prop="price" label="预估价" :span="2"></el-table-column>
+      <el-table-column prop="QuotePrict" label="预估价" :span="2"></el-table-column>
       <el-table-column prop="state" label="订单状态" :span="2"></el-table-column>
       <!-- <el-table-column label="调拨日期" :span="2">
         <template slot-scope="scope">{{scope.row.time|timeFilter}}</template>

@@ -7,7 +7,7 @@
       <el-table-column prop="class" label="类别" :span="2"></el-table-column>
       <el-table-column prop="user" label="用户" :span="2"></el-table-column>
       <el-table-column prop="time" label="创建时间" :span="2"></el-table-column>
-      <el-table-column prop="price" label="预估价" :span="2"></el-table-column>
+      <el-table-column prop="QuotePrict" label="预估价" :span="2"></el-table-column>
       <el-table-column prop="state" label="订单状态" :span="2" :sortable="false"></el-table-column>
       <!-- <el-table-column label="调拨日期" :span="2">
         <template slot-scope="scope">{{scope.row.time|timeFilter}}</template>
@@ -15,8 +15,7 @@
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
           <evalDialiog :chuanId="scope.row.OrderId" :state="true" @changeState="init"></evalDialiog>
-          <payback :payBackId="scope.row.BizOrderId" @changeState="init"></payback>
-          <el-button type="text" style="color:red" @click="moneyBack(scope.row.BizOrderId)">退货退款</el-button>
+          <payback :payBackId="scope.row.OrderId" @changeState="init"></payback>
         </template>
       </el-table-column>
     </el-table>
@@ -51,26 +50,7 @@ export default {
       this.requestData.page = val;
       this.init();
     },
-    //退货退款
-    moneyBack(id) {
-      this.$confirm("是否退货退款?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "确认退货退款!" + id,
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消",
-          });
-        });
-    },
+ 
     //初始化
     init() {
       this.$store.dispatch("getOrderData", this.requestData);

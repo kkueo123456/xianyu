@@ -169,7 +169,6 @@ export default {
       // 估价input的状态
       disable: false,
       //图片
-      dialogImageUrl: "",
       dialogVisible: false,
       disabled: false,
       //图片上传请求的接口
@@ -233,7 +232,6 @@ export default {
     surePublic(data) {
       //最大9位 最多保留两位小数点
       let re = /^(([1-9]{1}\d{0,7})|(0{1}))(\.\d{0,2})?$/;
-
       if (
         (this.form.evalInput == "" && this.form.PriceRadio) ||
         !re.test(this.form.evalInput)
@@ -278,7 +276,6 @@ export default {
     handleRemove(file) {
       console.log(file);
     },
-
     handleSuccess(response, file, fileList) {
       // 将图片url转成数组
       this.imgList = fileList.map((item) => {

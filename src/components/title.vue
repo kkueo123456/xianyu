@@ -5,11 +5,16 @@
       <div class="headSpace-left">
         <h3>亮橙珍品科技有限公司</h3>
         <el-breadcrumb separator="/">
-          <el-breadcrumb-item >首页</el-breadcrumb-item>
+          <el-breadcrumb-item>首页</el-breadcrumb-item>
           <el-breadcrumb-item v-for="(item) in $route.meta" :key="item.name">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <div class="headSpace-right">
+        <a
+          href="http://192.168.31.99:8010/Auth/Refresh"
+          class="shouquan"
+          @click="auth"
+        >点击进行授权</a>
         <div>
           <el-dropdown @command="logOut">
             <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
@@ -34,28 +39,32 @@ export default {
     logOut() {
       this.$axios({
         url: API.logOut,
-        method: "get"
+        method: "get",
       })
-        .then(res => {
+        .then((res) => {
           if (res.Status == "y") {
             this.$message({
               message: res.Msg,
-              type: "success"
+              type: "success",
             });
             this.$router.push("/login");
           }
         })
-        .catch(err => {
+        .catch((err) => {
           this.$message({
             message: err.Msg,
-            type: "success"
+            type: "success",
           });
         });
-    }
+    },
+    //授权
+    auth() {
+  
+    },
   },
   mounted() {},
   watch: {},
-  computed: {}
+  computed: {},
 };
 </script>
 <style lang="stylus" scoped>
@@ -75,5 +84,14 @@ export default {
 .headSpace-right {
   display: flex;
   padding-right: 30px;
+}
+
+.shouquan {
+  display: flex;
+  font-size: 12px;
+  cursor: pointer;
+  margin-right: 10px;
+  color: #409EFF;
+  align-items: center;
 }
 </style>

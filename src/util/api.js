@@ -13,6 +13,10 @@ const orderList = baseUrl + '/interface/OrderList'
 const orderPerform = baseUrl + '/interface/OrderFulfillment'
 //上传图片地址
 const orderPic = baseUrl + '/Interface/PictureUpload'
+//登录授权
+const Auth = baseUrl + '/Auth/Refresh'
+//退款
+const RefundApply = baseUrl + '/Interface/RefundApply'
 export default {
   login,
   logOut,
@@ -20,5 +24,7 @@ export default {
   orderList,
   orderPerform,
   evalDoing,
-  orderPic
+  orderPic,
+  Auth,
+  RefundApply
 }
