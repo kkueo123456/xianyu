@@ -2,13 +2,13 @@
   <!-- 待取件 -->
   <div class="table">
     <el-table :data="data">
-      <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
+      <el-table-column prop="ApprizeId" label="订单编号" :span="2"></el-table-column>
       <el-table-column prop="pin" label="品牌" :span="2"></el-table-column>
-      <el-table-column prop="class" label="类别" :span="2"></el-table-column>
-      <el-table-column prop="user" label="用户" :span="2"></el-table-column>
-      <el-table-column prop="time" label="创建时间" :span="2"></el-table-column>
-      <el-table-column prop="QuotePrict" label="预估价" :span="2"></el-table-column>
-      <el-table-column prop="state" label="订单状态" :span="2"></el-table-column>
+      <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>
+      <el-table-column prop="SellerAddress" label="地址" :span="2"></el-table-column>
+      <el-table-column prop="GmtCreate" label="创建时间" :span="2"></el-table-column>
+      <el-table-column prop="ApprizeAmount" label="预估价" :span="2"></el-table-column>
+      <el-table-column prop="ShipTime" label="取件时间" :span="2"></el-table-column>
       <!-- <el-table-column label="调拨日期" :span="2">
         <template slot-scope="scope">{{scope.row.time|timeFilter}}</template>
       </el-table-column>-->
@@ -27,7 +27,7 @@
               <el-button type="primary" @click="pickUpDialogSure">确 定</el-button>
             </span>
           </el-dialog>
-          <payback :payBackId="scope.row.Id" @changeState="init"></payback>
+          <payback :payBackId="scope.row.OrderId" @changeState="init"></payback>
         </template>
       </el-table-column>
     </el-table>
@@ -86,6 +86,7 @@ export default {
         };
         this.$store.dispatch("getOrderPerform", orderPerformData).then(() => {
           this.pickUpDialog = false;
+          this.pickUpInput = "";
           this.init();
         });
       }

@@ -2,16 +2,21 @@
   <!-- 交易成功 -->
   <div class="table">
     <el-table :data="data">
-      <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
+      <el-table-column prop="ApprizeId" label="订单编号" :span="2"></el-table-column>
       <el-table-column prop="pin" label="品牌" :span="2"></el-table-column>
-      <el-table-column prop="class" label="类别" :span="2"></el-table-column>
-      <el-table-column prop="user" label="用户" :span="2"></el-table-column>
-      <el-table-column prop="time" label="创建时间" :span="2"></el-table-column>
-      <el-table-column prop="price" label="预估价" :span="2"></el-table-column>
-      <el-table-column prop="state" label="订单状态" :span="2" :sortable="false"></el-table-column>
+      <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>
+      <el-table-column prop="SellerAddress" label="地址" :span="2"></el-table-column>
+      <el-table-column prop="GmtCreate" label="创建时间" :span="2"></el-table-column>
+      <el-table-column prop="ConfirmFee" label="质检价" :span="2"></el-table-column>
+      <el-table-column label="评价状态" :span="2">
+        <template
+          slot-scope="scope"
+        >{{scope.row.OrderStatus==5&&'待卖家评价'||scope.row.OrderStatus==6&&'待评价'||scope.row.OrderStatus==7&&'评价完成'}}</template>
+      </el-table-column>
+      <el-table-column prop="RateContent" label="评价内容" :span="2"></el-table-column>
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <el-button type="text" @click="say(scope.row.BizOrderId)">评价</el-button>
+          <el-button type="text" @click="say(scope.row.OrderId)" v-if="scope.row.OrderStatus==6">评价</el-button>
           <el-dialog title="输入评价" :visible.sync="sayDialog" width="30%" :append-to-body="true">
             <el-radio-group v-model="sayRadio" style="margin-bottom:15px">
               <el-radio :label="1">好评</el-radio>
@@ -48,7 +53,7 @@ export default {
     return {
       pageN: 0,
       requestData: {
-        orderStatus: "4",
+        orderStatus: "5",
         page: 1,
       },
       //评价的dialog
@@ -79,7 +84,7 @@ export default {
         });
       } else {
         let orderPerformData = {
-          orderStatus: "6",
+          orderStatus: "7",
           orderId: this.sayId,
           rateContent: this.sayMain,
           rateGrade: this.sayRadio,
@@ -88,6 +93,7 @@ export default {
           .dispatch("getOrderPerform", orderPerformData)
           .then((res) => {
             this.sayDialog = false;
+            this.sayMain = "";
             this.init();
           });
       }

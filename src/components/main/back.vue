@@ -2,19 +2,19 @@
   <!-- 待退货 -->
   <div class="table">
     <el-table :data="data">
-      <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
+      <el-table-column prop="ApprizeId" label="订单编号" :span="2"></el-table-column>
       <el-table-column prop="pin" label="品牌" :span="2"></el-table-column>
-      <el-table-column prop="class" label="类别" :span="2"></el-table-column>
-      <el-table-column prop="user" label="用户" :span="2"></el-table-column>
-      <el-table-column prop="time" label="创建时间" :span="2"></el-table-column>
-      <el-table-column prop="price" label="预估价" :span="2"></el-table-column>
-      <el-table-column prop="state" label="订单状态" :span="2"></el-table-column>
+      <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>
+      <el-table-column prop="SellerAddress" label="地址" :span="2"></el-table-column>
+      <el-table-column prop="GmtCreate" label="创建时间" :span="2"></el-table-column>
+      <el-table-column prop="ApprizeAmount" label="预估价" :span="2"></el-table-column>
+      <el-table-column prop="ShipTime" label="取件时间" :span="2"></el-table-column>
       <!-- <el-table-column label="调拨日期" :span="2">
         <template slot-scope="scope">{{scope.row.time|timeFilter}}</template>
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <el-button type="text" @click="back(scope.row.BizOrderId)" style="color:red">退货</el-button>
+          <el-button type="text" @click="back(scope.row.OrderId)" style="color:red">退货</el-button>
           <el-dialog title="收货地址" :visible.sync="backDialog" :append-to-body="true">
             <el-form :model="form">
               <!-- <el-form-item label="订单号">
@@ -106,7 +106,7 @@ export default {
       } else {
         let orderPerformData = {
           orderStatus: "101",
-          reason: this.form.WaybillNum,
+          mailNo: this.form.WaybillNum,
           orderId: this.backId,
         };
         this.$store.dispatch("getOrderPerform", orderPerformData).then(() => {

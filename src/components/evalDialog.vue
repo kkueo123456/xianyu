@@ -3,6 +3,7 @@
   <div class="dialogWrap">
     <el-button type="text" @click="eval(chuanId,chuanImg)" v-if="state==false">估价</el-button>
     <el-button type="text" @click="eval(chuanId)" v-if="state==true">质检</el-button>
+    <!-- <el-button type="text" @click="eval(chuanId)" v-if="hasTest==true">重新质检</el-button> -->
     <el-dialog title="质检报告" :visible.sync="isShow" :modal-append-to-body="false">
       <div class="small-img">
         <el-image
@@ -100,7 +101,7 @@
           show-word-limit
         ></el-input>
       </div>
-      <div class="price-wrap" v-if="state==true">
+      <div class="price-wrap" v-if="state==true||hasTest==true">
         <span style="line-height:50px">
           <b style="color:red">*</b>评估描述
         </span>
@@ -125,7 +126,7 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="quxiao">取 消</el-button>
         <el-button @click="evalSure" v-if="state==false">确 定</el-button>
-        <el-button @click="testSure" v-if="state==true">确 定</el-button>
+        <el-button @click="testSure" v-if="state==true||hasTest==true">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -134,10 +135,12 @@
 import API from "../util/api";
 import { Loading } from "element-ui";
 export default {
-  props: ["chuanId", "state", "chuanImg"],
+  props: ["chuanId", "state", "chuanImg", "hasTest"],
   components: {},
   data() {
     return {
+      //判断市质检
+      isTest: this.state,
       form: {
         //成色的radio
         colorRadio: "无",
@@ -211,7 +214,7 @@ export default {
         summary: this.form.sayMain,
         degree: this.form.colorRadio,
       };
-     this.surePublic(evalData)
+      this.surePublic(evalData);
     },
 
     //质检确定
@@ -231,7 +234,7 @@ export default {
     },
     surePublic(data) {
       //最大9位 最多保留两位小数点
-      let re = /^(([1-9]{1}\d{0,7})|(0{1}))(\.\d{0,2})?$/;
+      let re = /^(([1-9]{1}\d{0,6})|(0{1}))(\.\d{0,2})?$/;
       if (
         (this.form.evalInput == "" && this.form.PriceRadio) ||
         !re.test(this.form.evalInput)
@@ -250,6 +253,7 @@ export default {
           params: data,
         })
           .then((res) => {
+            console.log(data);
             //close
             lod.close();
             this.isShow = false;
@@ -267,7 +271,7 @@ export default {
           .catch((err) => {
             //close
             lod.close();
-            console.log(err)
+            console.log(err);
           });
       }
     },
@@ -283,7 +287,11 @@ export default {
       });
     },
   },
-  mounted() {},
+  mounted() {
+    this.form.sayMain = this.isTest
+      ? "质检评价"
+      : "以上为参考价格，具体以实物鉴定为准。若下单邮寄，邮费到付";
+  },
   watch: {},
   computed: {},
 };

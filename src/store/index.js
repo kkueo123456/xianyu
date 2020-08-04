@@ -74,6 +74,7 @@ const actions = {
   },
   //一些订单履约操作的请求
   getOrderPerform(context, orderPerformData) {
+    console.log(orderPerformData,'222')
     let lod = Loading.service({
       text: '数据提交中',
       spinner: 'el-icon-loading',

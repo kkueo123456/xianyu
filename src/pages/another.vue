@@ -28,8 +28,8 @@ const back = () => import("../components/main/back");
 const unusual=()=>import('../components/main/unusual')
 //交易关闭
 const close = () => import("../components/main/close");
-//待客户确认关闭订单
-const waitClose = () => import("../components/main/waitClose");
+//已质检
+const hastest = () => import("../components/main/hastest");
 //添加管理员
 const addAdmin = () => import("../components/main/addAdmin");
 export default {
@@ -46,7 +46,7 @@ export default {
     delivered,
     paid,
     unusual,
-    waitClose,
+    hastest,
     addAdmin
   },
   data() {

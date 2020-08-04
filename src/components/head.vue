@@ -27,57 +27,62 @@ export default {
           buttonName: "evaluate",
           isDot: false,
           buttonText: "估价",
-          buttonIndex: "1"
+          buttonIndex: "1",
         },
         {
           buttonName: "waitSure",
           isDot: false,
           buttonText: "待客户确认",
-          buttonIndex: "2"
+          buttonIndex: "2",
         },
         {
           buttonName: "made",
           isDot: false,
           buttonText: "已下单",
-          buttonIndex: "3"
+          buttonIndex: "3",
         },
         {
           buttonName: "paid",
           isDot: false,
           buttonText: "待取件",
-          buttonIndex: "4"
+          buttonIndex: "4",
         },
-    
+
         {
           buttonName: "test",
           isDot: false,
           buttonText: "未质检",
-          buttonIndex: "6"
+          buttonIndex: "6",
         },
-
+        {
+          buttonName: "hastest",
+          isDot: false,
+          buttonText: "回收商确认",
+          buttonIndex: "7",
+        },
         {
           buttonName: "success",
           isDot: false,
           buttonText: "交易成功",
-          buttonIndex: "7"
+          buttonIndex: "8",
         },
         {
           buttonName: "back",
           isDot: false,
           buttonText: "待退货",
-          buttonIndex: "8"
+          buttonIndex: "9",
         },
-        {
-          buttonName: "unusual",
-          isDot: false,
-          buttonText: "异常订单",
-          buttonIndex: "9"
-        },
+        // {
+        //   buttonName: "unusual",
+        //   isDot: false,
+        //   buttonText: "异常订单",
+        //   buttonIndex: "10",
+        // },
         {
           buttonName: "close",
           isDot: false,
           buttonText: "交易关闭",
-          buttonIndex: "10"
+          buttonIndex: "11",
         },
         // {
         //   buttonName: "waitClose",
@@ -85,17 +90,17 @@ export default {
         //   buttonText: "待关闭订单",
         //   buttonIndex: "11"
         // }
-      ]
+      ],
     };
   },
   methods: {
     changeView(id) {
       this.$emit("show", id);
-    }
+    },
   },
   mounted() {},
   watch: {},
-  computed: {}
+  computed: {},
 };
 </script>
 <style lang="stylus" scoped>

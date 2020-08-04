@@ -2,19 +2,19 @@
   <!-- 已下单 -->
   <div class="table">
     <el-table :data="data">
-      <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
+       <el-table-column prop="ApprizeId" label="订单编号" :span="2"></el-table-column>
       <el-table-column prop="pin" label="品牌" :span="2"></el-table-column>
-      <el-table-column prop="class" label="类别" :span="2"></el-table-column>
-      <el-table-column prop="user" label="用户" :span="2"></el-table-column>
-      <el-table-column prop="time" label="创建时间" :span="2"></el-table-column>
-      <el-table-column prop="QuotePrict" label="预估价" :span="2"></el-table-column>
-      <el-table-column prop="state" label="订单状态" :span="2"></el-table-column>
+      <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>
+      <el-table-column prop="SellerAddress" label="地址" :span="2"></el-table-column>
+      <el-table-column prop="GmtCreate" label="创建时间" :span="2"></el-table-column>
+      <el-table-column prop="ApprizeAmount" label="预估价" :span="2"></el-table-column>
+      <el-table-column prop="ShipTime" label="取件时间" :span="2"></el-table-column>
       <!-- <el-table-column label="调拨日期" :span="2">
         <template slot-scope="scope">{{scope.row.time|timeFilter}}</template>
       </el-table-column>-->
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <el-button type="text" @click="cancel(scope.row.BizOrderId)" style="color:red">取消订单</el-button>
+          <el-button type="text" @click="cancel(scope.row.OrderId)" style="color:red">取消订单</el-button>
           <el-dialog title="填写原因" :visible.sync="cancelDialog" width="30%" :append-to-body="true">
             <el-input placeholder="请输入原因" v-model="cancelInput" clearable></el-input>
             <span slot="footer" class="dialog-footer">
@@ -77,9 +77,11 @@ export default {
           reason: this.cancelInput,
           orderId: this.cancelId,
         };
+        console.log();
         this.$store.dispatch("getOrderPerform", orderPerformData).then(() => {
           this.cancelDialog = false;
           this.init();
+          this.cancelInput = "";
         });
       }
     },
