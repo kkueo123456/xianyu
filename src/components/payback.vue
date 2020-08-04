@@ -1,7 +1,7 @@
 <template>
   <!-- 退款组件 -->
   <div class="PayBackWrap">
-    <el-button type="text" @click="payBack(payBackId)" style="color:red">退款</el-button>
+    <!-- <el-button type="text" @click="payBack(payBackId)" style="color:red">退款</el-button> -->
     <el-dialog title="退款原因" :visible.sync="payBackDialog" width="30%" :append-to-body="true">
       <el-input
         type="textarea"

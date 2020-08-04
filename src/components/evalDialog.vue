@@ -125,8 +125,8 @@
       </el-upload>
       <div slot="footer" class="dialog-footer">
         <el-button @click="quxiao">取 消</el-button>
-        <el-button @click="evalSure" v-if="state==false">确 定</el-button>
-        <el-button @click="testSure" v-if="state==true||hasTest==true">确 定</el-button>
+        <el-button @click="evalSure" v-if="state==false">估价确定</el-button>
+        <el-button @click="testSure" v-if="state==true||hasTest==true">质检确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -213,6 +213,7 @@ export default {
         price: this.form.evalInput,
         summary: this.form.sayMain,
         degree: this.form.colorRadio,
+        report: {},
       };
       this.surePublic(evalData);
     },
@@ -229,6 +230,70 @@ export default {
         summary: this.form.sayMain,
         explanation: JSON.stringify(testExplanation),
         degree: this.form.colorRadio,
+        report: {
+          questions: [
+            {
+              answers: [
+                {
+                  banned: false,
+                  id: 0,
+                  name: this.form.has,
+                },
+              ],
+              groupId: 0,
+              groupName: "附件情况",
+              id: 0,
+              name: "有",
+              questionType: "",
+              required: false,
+            },
+            {
+              answers: [
+                {
+                  banned: false,
+                  id: 0,
+                  name: this.form.no,
+                },
+              ],
+              groupId: 0,
+              groupName: "附件情况",
+              id: 0,
+              name: "无",
+              questionType: "",
+              required: false,
+            },
+            {
+              answers: [
+                {
+                  banned: false,
+                  id: 0,
+                  name: this.form.poSun,
+                },
+                {
+                  banned: false,
+                  id: 0,
+                  name: this.form.ranSe,
+                },
+                {
+                  banned: false,
+                  id: 0,
+                  name: this.form.huaHen,
+                },
+                {
+                  banned: false,
+                  id: 0,
+                  name: this.form.moSun,
+                },
+              ],
+              groupId: 4,
+              groupName: "瑕疵情况",
+              id: 0,
+              name: "破损",
+              questionType: "",
+              required: false,
+            },
+          ],
+        },
       };
       this.surePublic(testData);
     },

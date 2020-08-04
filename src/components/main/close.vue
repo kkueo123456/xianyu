@@ -3,12 +3,14 @@
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="ApprizeId" label="订单编号" :span="2"></el-table-column>
-      <el-table-column prop="pin" label="品牌" :span="2"></el-table-column>
+      <el-table-column prop="pin" label="商品" :span="2"></el-table-column>
+      <el-table-column prop="SellerRealName" label="卖家姓名" :span="2"></el-table-column>
       <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>
       <el-table-column prop="SellerAddress" label="地址" :span="2"></el-table-column>
       <el-table-column prop="GmtCreate" label="创建时间" :span="2"></el-table-column>
       <el-table-column prop="ApprizeAmount" label="预估价" :span="2"></el-table-column>
-      <el-table-column prop="ShipTime" label="取件时间" :span="2"></el-table-column>
+      <el-table-column prop="ConfirmFee" label="质检价" :span="2"></el-table-column>
+
       <!-- <el-table-column label="调拨日期" :span="2">
         <template slot-scope="scope">{{scope.row.time|timeFilter}}</template>
       </el-table-column>-->
@@ -31,7 +33,7 @@ export default {
   data() {
     return {
       requestData: {
-        orderStatus: 102,
+        orderStatus: 101,
         page: 1,
       },
     };

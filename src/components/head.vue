@@ -72,12 +72,12 @@ export default {
           buttonText: "待退货",
           buttonIndex: "9",
         },
-        // {
-        //   buttonName: "unusual",
-        //   isDot: false,
-        //   buttonText: "异常订单",
-        //   buttonIndex: "10",
-        // },
+        {
+          buttonName: "unusual",
+          isDot: false,
+          buttonText: "取消的订单",
+          buttonIndex: "10",
+        },
         {
           buttonName: "close",
           isDot: false,

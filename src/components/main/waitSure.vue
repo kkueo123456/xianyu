@@ -3,7 +3,7 @@
   <div class="table">
     <el-table :data="data" >
       <el-table-column prop="QuoteId" label="估价编号" :span="2" ></el-table-column>
-      <el-table-column prop="pin" label="品牌" :span="2"></el-table-column>
+      <el-table-column prop="pin" label="商品" :span="2"></el-table-column>
       <el-table-column prop="class" label="类别" :span="2"></el-table-column>
       <!-- <el-table-column prop="user" label="用户" :span="2"></el-table-column> -->
       <el-table-column label="创建时间" prop="CreateTime" :span="2" sortable>

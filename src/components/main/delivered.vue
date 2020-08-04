@@ -3,7 +3,7 @@
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
-      <el-table-column prop="pin" label="品牌" :span="2"></el-table-column>
+      <el-table-column prop="pin" label="商品" :span="2"></el-table-column>
       <el-table-column prop="class" label="类别" :span="2"></el-table-column>
       <el-table-column prop="user" label="用户" :span="2"></el-table-column>
       <el-table-column prop="time" label="创建时间" :span="2"></el-table-column>
