@@ -4,7 +4,7 @@
     <el-button type="text" @click="eval(chuanId,chuanImg)" v-if="state==false">估价</el-button>
     <el-button type="text" @click="eval(chuanId)" v-if="state==true">质检</el-button>
     <!-- <el-button type="text" @click="eval(chuanId)" v-if="hasTest==true">重新质检</el-button> -->
-    <el-dialog title="质检报告" :visible.sync="isShow" :modal-append-to-body="false">
+    <el-dialog title="质检报告(*为必填项)" :visible.sync="isShow" :modal-append-to-body="false">
       <div class="small-img">
         <el-image
           v-for="(item,index) in srcList"

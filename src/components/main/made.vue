@@ -10,9 +10,7 @@
       <el-table-column prop="GmtCreate" label="创建时间" :span="2"></el-table-column>
       <el-table-column prop="ApprizeAmount" label="预估价" :span="2"></el-table-column>
       <el-table-column prop="ShipTime" label="取件时间" :span="2"></el-table-column>
-      <!-- <el-table-column label="调拨日期" :span="2">
-        <template slot-scope="scope">{{scope.row.time|timeFilter}}</template>
-      </el-table-column>-->
+
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
           <el-button type="text" @click="cancel(scope.row.OrderId)" style="color:red">取消订单</el-button>

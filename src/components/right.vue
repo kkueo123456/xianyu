@@ -32,7 +32,7 @@ export default {
 
 .wrap-main {
   width: 100%;
-  padding: 5px 12px 5px 12px;
+  padding: 5px 12px 10px 12px;
   flex: 1;
 }
 </style>

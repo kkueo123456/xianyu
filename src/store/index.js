@@ -46,7 +46,7 @@ const actions = {
       console.log(err)
     })
   },
-  //订单履约列表的请求
+  //订单履约列表
   getOrderData(context, requestData) {
     let text = '请稍等数据加载'
     let lod = Loading.service({
@@ -74,7 +74,7 @@ const actions = {
   },
   //一些订单履约操作的请求
   getOrderPerform(context, orderPerformData) {
-    console.log(orderPerformData,'222')
+    console.log(orderPerformData, '222')
     let lod = Loading.service({
       text: '数据提交中',
       spinner: 'el-icon-loading',
@@ -105,7 +105,33 @@ const actions = {
         message: err.Msg
       });
     })
-  }
+  },
+  //spu列表
+  getSpuData(context, requestData) {
+    let text = '请稍等数据加载'
+    let lod = Loading.service({
+      target: '.main',
+      text,
+    });
+    axios({
+      url: API.spuList,
+      method: "post",
+      params: requestData
+    }).then(res => {
+      //close
+      lod.close()
+      let data = {
+        mainData: res.Data,
+        pageData: res.ListCount
+      }
+      context.commit('mainData', data)
+
+    }).catch(err => {
+      //close
+      lod.close()
+
+    })
+  },
 }
 const getters = {
   data(state) {

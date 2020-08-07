@@ -12,6 +12,8 @@ const bags = () => import('../pages/bags')
 const watch = () => import('../pages/watch')
 //其他
 const another = () => import('../pages/another')
+//配置spu
+const spu = () => import('../pages/spu')
 Vue.use(Router)
 
 export default new Router({
@@ -22,25 +24,31 @@ export default new Router({
       children: [{
           path: 'jewelry',
           component: jewelry,
-          name:'jewelry',
+          name: 'jewelry',
           meta: ['首饰']
         },
         {
           path: 'bags',
           component: bags,
-          name:'bags',
+          name: 'bags',
           meta: ['箱包']
         },
         {
           path: 'watch',
           component: watch,
-          name:'watch',
+          name: 'watch',
           meta: ['腕表']
         }, {
           path: 'another',
           component: another,
-          name:'another',
+          name: 'another',
           meta: ['其他']
+        },
+        {
+          path: 'spu',
+          component: spu,
+          name: 'spu',
+          meta: ['配置spu']
         },
         {
           path: '',

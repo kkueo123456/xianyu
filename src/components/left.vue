@@ -43,13 +43,17 @@ export default {
           ico: "el-icon-potato-strips",
           num: 0,
         },
+        {
+          name: "/index/spu",
+          navItem: "配置模板",
+          ico: "el-icon-toilet-paper",
+          num: 0,
+        },
       ],
       numList: [],
     };
   },
-  methods: {
-  
-  },
+  methods: {},
   mounted() {
     this.navList.forEach((item) => {
       item.num = this.numList;

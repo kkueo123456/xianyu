@@ -29,27 +29,45 @@
   <div class='cont'>
   </div>
   <script>
-    let num = 1
-    var wrap = document.querySelector('.cont')
-
-    function mv() {
-      wrap.innerHTML = num++
-    }
-    function fd(item, time) { //全局触发
-      let timer
-      return function () { //实际上mousemove事件开始时触发的是这个
-        clearTimeout(timer)
-        timer = setTimeout(() => { //这里用箭头函数可以省去绑定This与event的步骤
-          item()
-        }, time)
+    let data = [{
+        name: '2'
+      },
+      {
+        name: '3'
+      },
+      {
+        name: '4'
+      },
+      {
+        name: '6'
       }
-    }
-    wrap.onmousemove = fd(mv, 1000) //相当于fd()，已经调用了，实际上mousemove事件触发的是里面的return出去的函数
-
-    function fd2() {
-      console.log(this)
-    }
-    wrap.onmousemove = fd2() //window
+    ]
+    let data2 = [{
+        name: '2'
+      },
+      {
+        name: '3'
+      },
+      {
+        name: '4'
+      },
+      {
+        name: '5'
+      }, {
+        name: '6'
+      },
+      {
+        name: '7'
+      },
+      {
+        name: '8'
+      },
+      {
+        name: '9'
+      }
+    ]
+    let data3 = data.unshift(...data2)
+    console.log(data3)
 
   </script>
 </body>

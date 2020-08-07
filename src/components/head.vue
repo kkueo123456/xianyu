@@ -81,7 +81,7 @@ export default {
         {
           buttonName: "close",
           isDot: false,
-          buttonText: "交易关闭",
+          buttonText: "已退货",
           buttonIndex: "11",
         },
         // {

@@ -17,6 +17,16 @@ const orderPic = baseUrl + '/Interface/PictureUpload'
 const Auth = baseUrl + '/Auth/Refresh'
 //退款
 const RefundApply = baseUrl + '/Interface/RefundApply'
+//spu列表
+const spuList = baseUrl + '/SpuManage/SpuList'
+//模板列表
+const MuBan = baseUrl + '/SpuManage/QuestionnaireList'
+//添加模板
+const addMuBan = baseUrl + '/SpuManage/SpuAdd'
+//关联
+const guanlian = baseUrl + '/SpuManage/SpuAndQuestionnaire'
+// cs
+const question=baseUrl+'/SpuManage/QuestionnaireAdd'
 export default {
   login,
   logOut,
@@ -26,5 +36,10 @@ export default {
   evalDoing,
   orderPic,
   Auth,
-  RefundApply
+  RefundApply,
+  spuList,
+  MuBan,
+  addMuBan,
+  guanlian,
+  question
 }

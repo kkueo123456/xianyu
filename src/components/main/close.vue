@@ -11,12 +11,9 @@
       <el-table-column prop="ApprizeAmount" label="预估价" :span="2"></el-table-column>
       <el-table-column prop="ConfirmFee" label="质检价" :span="2"></el-table-column>
 
-      <!-- <el-table-column label="调拨日期" :span="2">
-        <template slot-scope="scope">{{scope.row.time|timeFilter}}</template>
-      </el-table-column>-->
-      <!-- 分页 -->
-      <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
     </el-table>
+    <!-- 分页 -->
+    <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
   </div>
 </template>
 <script>
