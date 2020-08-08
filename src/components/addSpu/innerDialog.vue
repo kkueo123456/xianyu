@@ -84,7 +84,6 @@ export default {
     //添加列表
     addDataList(dat) {
       this.data.push(dat);
-      console.log(this.data);
     },
     //shanchu
     del(i) {

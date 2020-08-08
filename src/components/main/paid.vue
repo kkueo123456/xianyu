@@ -3,11 +3,10 @@
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="ApprizeId" label="订单编号" :span="2"></el-table-column>
-      <el-table-column prop="pin" label="商品" :span="2"></el-table-column>
       <el-table-column prop="SellerRealName" label="卖家姓名" :span="2"></el-table-column>
       <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>
       <el-table-column prop="SellerAddress" label="地址" :span="2"></el-table-column>
-      <el-table-column prop="GmtCreate" label="创建时间" :span="2"></el-table-column>
+      <el-table-column prop="GmtCreate" label="创建时间" :span="2" sortable></el-table-column>
       <el-table-column prop="ApprizeAmount" label="预估价" :span="2"></el-table-column>
       <el-table-column prop="ShipTime" label="取件时间" :span="2"></el-table-column>
       <el-table-column fixed="right" label="操作" :span="2">
@@ -49,6 +48,7 @@ export default {
       requestData: {
         orderStatus: 1,
         page: 1,
+        supCategoryName: "",
       },
       //取件的dialog
       pickUpDialog: false,
@@ -91,6 +91,12 @@ export default {
     },
     //初始化
     init() {
+      let routeName = this.$route.name;
+      this.requestData.supCategoryName =
+        (routeName == "jewelry" && "首饰") ||
+        (routeName == "bags" && "箱包") ||
+        (routeName == "watch" && "腕表") ||
+        (routeName == "another" && "其他");
       this.$store.dispatch("getOrderData", this.requestData);
     },
   },

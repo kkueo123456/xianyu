@@ -16,8 +16,7 @@
         </el-table-column>
       </el-table>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="outerVisible = false">取 消</el-button>
-        <el-button type="primary" @click="outSure">确 定</el-button>
+        <el-button type="primary" @click="outSure">关闭</el-button>
       </span>
     </el-dialog>
   </div>
@@ -52,7 +51,6 @@ export default {
       })
         .then((res) => {
           this.data = res.Data;
-          console.log("1");
         })
         .catch((err) => {
           console.log(err);
@@ -64,7 +62,7 @@ export default {
 
     // 外层确定
     outSure() {
-      this.innerVisible = false;
+      this.outerVisible = false;
     },
     init() {},
   },

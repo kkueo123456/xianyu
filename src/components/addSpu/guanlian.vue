@@ -48,7 +48,6 @@ export default {
               message: res.Msg,
             });
       });
-      console.log(mubanid, spuid);
     },
   },
   mounted() {},

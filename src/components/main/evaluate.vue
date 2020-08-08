@@ -3,14 +3,12 @@
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="QuoteId" label="估价编号" :span="2"></el-table-column>
-      <el-table-column prop="pin" label="商品" :span="2"></el-table-column>
-      <el-table-column prop="class" label="类别" :span="2"></el-table-column>
       <!-- <el-table-column prop="user" label="用户" :span="2"></el-table-column> -->
+      <el-table-column prop="SceneType" label="类别" :span="2"></el-table-column>
       <el-table-column prop="CreateTime" label="创建时间" sortable :span="2"></el-table-column>
       <el-table-column label="报价截止" :span="2">
         <template slot-scope="scope">{{scope.row.TimeLimit|transTime}}</template>
       </el-table-column>
-      <el-table-column prop="Price" label="预估价" :span="2"></el-table-column>
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
           <evalDialiog
@@ -43,6 +41,7 @@ export default {
       requestData: {
         IsPrice: 0,
         page: 1,
+        supCategoryName: "",
       },
     };
   },
@@ -54,6 +53,12 @@ export default {
     },
     //初始化
     init() {
+      let routeName = this.$route.name;
+      this.requestData.supCategoryName =
+        (routeName == "jewelry" && "首饰") ||
+        (routeName == "bags" && "箱包") ||
+        (routeName == "watch" && "腕表") ||
+        (routeName == "another" && "其他");
       this.$store.dispatch("getEvalData", this.requestData);
     },
   },

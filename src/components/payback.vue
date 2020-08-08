@@ -48,7 +48,6 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
           this.payBackDialog = false;
           res.Status == "y"
             ? this.$message({

@@ -120,6 +120,7 @@
         :on-remove="handleRemove"
         :on-success="handleSuccess"
         :limit="3"
+        v-if="state==true"
       >
         <i class="el-icon-plus"></i>
       </el-upload>
@@ -192,12 +193,11 @@ export default {
         this.srcList = imgArr;
       }
 
-      console.log(id);
     },
     quxiao() {
       //取消的清空操作
-      this.evalInput = "";
-      this.PriceRadio = "";
+      this.form.evalInput = "";
+      this.form.PriceRadio = "";
       this.isShow = false;
     },
     //暂无报价控制Input
@@ -240,7 +240,6 @@ export default {
                   name: this.form.has,
                 },
               ],
-              groupId: 0,
               groupName: "附件情况",
               id: 0,
               name: "有",
@@ -255,7 +254,6 @@ export default {
                   name: this.form.no,
                 },
               ],
-              groupId: 0,
               groupName: "附件情况",
               id: 0,
               name: "无",
@@ -267,28 +265,54 @@ export default {
                 {
                   banned: false,
                   id: 0,
-                  name: this.form.poSun,
-                },
-                {
-                  banned: false,
-                  id: 0,
                   name: this.form.ranSe,
                 },
+              ],
+              groupName: "瑕疵情况",
+              id: 0,
+              name: "染色",
+              questionType: "",
+              required: false,
+            },
+            {
+              answers: [
                 {
                   banned: false,
                   id: 0,
                   name: this.form.huaHen,
                 },
+              ],
+              groupName: "瑕疵情况",
+              id: 0,
+              name: "划痕",
+              questionType: "",
+              required: false,
+            },
+            {
+              answers: [
+                {
+                  banned: false,
+                  id: 0,
+                  name: this.form.poSun,
+                },
+              ],
+              groupName: "瑕疵情况",
+              id: 0,
+              name: "破损",
+              questionType: "",
+              required: false,
+            },
+            {
+              answers: [
                 {
                   banned: false,
                   id: 0,
                   name: this.form.moSun,
                 },
               ],
-              groupId: 4,
               groupName: "瑕疵情况",
               id: 0,
-              name: "破损",
+              name: "磨损",
               questionType: "",
               required: false,
             },
@@ -318,7 +342,6 @@ export default {
           params: data,
         })
           .then((res) => {
-            console.log(data);
             //close
             lod.close();
             this.isShow = false;
@@ -331,6 +354,8 @@ export default {
                   type: "error",
                   message: res.Msg,
                 });
+            this.form.evalInput = "";
+            this.form.PriceRadio = "";
             this.$emit("changeState");
           })
           .catch((err) => {

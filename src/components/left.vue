@@ -39,7 +39,7 @@ export default {
         },
         {
           name: "/index/another",
-          navItem: "其他",
+          navItem: "其它",
           ico: "el-icon-potato-strips",
           num: 0,
         },
