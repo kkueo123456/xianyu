@@ -189,8 +189,7 @@ export default {
     eval(id, chuanImg) {
       this.isShow = true;
       this.skuId = id;
-      console.log("-----------");
-      console.log(this.gujia);
+
       //解析图片
       if (chuanImg) {
         let img = JSON.parse(chuanImg).questions;

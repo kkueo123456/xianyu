@@ -16,7 +16,7 @@
         </el-table-column>
       </el-table>
 
-      <!-- <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage> -->
+      <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
 
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="outSure">关闭</el-button>
@@ -30,12 +30,15 @@ import innerDialog from "./innerDialog";
 import addDialog from "./addPicture";
 import API from "../../util/api";
 import guanlian from "./guanlian";
+import { Loading } from "element-ui";
+
 export default {
   props: ["addId"],
   components: {
     innerDialog,
     addDialog,
     guanlian,
+    checkPage,
   },
   data() {
     return {
@@ -47,25 +50,34 @@ export default {
       //spuid
       spuId: this.addId,
       data: [],
+      Pagelist: 0,
     };
   },
   methods: {
     //跳页
     jumpPage(val) {
       this.requestData.page = val;
-      this.init();
+      console.log(val);
+      this.update();
     },
     update() {
       this.outerVisible = true;
+      let lod = Loading.service({
+        text: "加载中",
+        target:'.el-dialog__body'
+      });
       this.$axios({
         url: API.MuBan,
         method: "post",
         params: this.requestData,
       })
         .then((res) => {
+          lod.close();
           this.data = res.Data;
+          this.Pagelist = res.ListCount;
         })
         .catch((err) => {
+          lod.close();
           console.log(err);
         });
     },
