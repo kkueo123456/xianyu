@@ -2,13 +2,15 @@
   <!-- 已下单 -->
   <div class="table">
     <el-table :data="data">
-      <el-table-column prop="ApprizeId" label="订单编号" :span="2"></el-table-column>
+      <el-table-column prop="OrderId" label="订单编号" :span="2"></el-table-column>
+      <el-table-column prop="SupCategoryName" label="图片" :span="2"></el-table-column>
       <el-table-column prop="SellerRealName" label="卖家姓名" :span="2"></el-table-column>
       <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>
       <el-table-column prop="SellerAddress" label="地址" :span="2"></el-table-column>
       <el-table-column prop="GmtCreate" label="创建时间" :span="2" sortable></el-table-column>
       <el-table-column prop="ApprizeAmount" label="预估价" :span="2"></el-table-column>
       <el-table-column prop="ShipTime" label="取件时间" :span="2"></el-table-column>
+      
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
           <el-button type="text" @click="cancel(scope.row.OrderId)" style="color:red">取消订单</el-button>

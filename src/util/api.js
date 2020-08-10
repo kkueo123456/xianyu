@@ -1,4 +1,4 @@
-var baseUrl = ''
+var baseUrl = '/api'
 //登录 
 const login = baseUrl + '/Login/AdminUserLogin'
 //登出

@@ -82,7 +82,12 @@
           <span>
             <b style="color:red">*</b>输入价格
           </span>
-          <el-input placeholder="请输入" v-model="form.evalInput" clearable :disabled="disable"></el-input>
+          <el-input
+            :placeholder="gujia?'估价金额'+gujia:'请输入'"
+            v-model="form.evalInput"
+            clearable
+            :disabled="disable"
+          ></el-input>
         </div>
         <div class="no-price">
           <el-radio v-model="form.PriceRadio" :label="0" @change="isDisabled" :disabled="state">暂无报价</el-radio>
@@ -136,7 +141,7 @@
 import API from "../util/api";
 import { Loading } from "element-ui";
 export default {
-  props: ["chuanId", "state", "chuanImg", "hasTest"],
+  props: ["chuanId", "state", "chuanImg", "hasTest", "gujia"],
   components: {},
   data() {
     return {
@@ -184,6 +189,8 @@ export default {
     eval(id, chuanImg) {
       this.isShow = true;
       this.skuId = id;
+      console.log("-----------");
+      console.log(this.gujia);
       //解析图片
       if (chuanImg) {
         let img = JSON.parse(chuanImg).questions;
@@ -192,7 +199,6 @@ export default {
         });
         this.srcList = imgArr;
       }
-
     },
     quxiao() {
       //取消的清空操作

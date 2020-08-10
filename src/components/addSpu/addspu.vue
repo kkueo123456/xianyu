@@ -15,6 +15,9 @@
           </template>
         </el-table-column>
       </el-table>
+
+      <!-- <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage> -->
+
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="outSure">关闭</el-button>
       </span>
@@ -22,6 +25,7 @@
   </div>
 </template>
 <script>
+import checkPage from "../checkPage";
 import innerDialog from "./innerDialog";
 import addDialog from "./addPicture";
 import API from "../../util/api";
@@ -35,6 +39,9 @@ export default {
   },
   data() {
     return {
+      requestData: {
+        page: 1,
+      },
       //外层dialog
       outerVisible: false,
       //spuid
@@ -43,11 +50,17 @@ export default {
     };
   },
   methods: {
+    //跳页
+    jumpPage(val) {
+      this.requestData.page = val;
+      this.init();
+    },
     update() {
       this.outerVisible = true;
       this.$axios({
         url: API.MuBan,
         method: "post",
+        params: this.requestData,
       })
         .then((res) => {
           this.data = res.Data;

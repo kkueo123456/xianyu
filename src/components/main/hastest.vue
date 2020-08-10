@@ -2,7 +2,7 @@
   <!-- 回收商确认 -->
   <div class="table">
     <el-table :data="data">
-      <el-table-column prop="ApprizeId" label="订单编号" :span="2"></el-table-column>
+      <el-table-column prop="OrderId" label="订单编号" :span="2"></el-table-column>
       <el-table-column prop="SellerRealName" label="卖家姓名" :span="2"></el-table-column>
 
       <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>

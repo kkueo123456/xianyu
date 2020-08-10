@@ -8,7 +8,7 @@ module.exports = {
   dev: {
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: './', //这里修改
+    assetsPublicPath: '/', //这里修改
     proxyTable: {
       '/api': {
         target: 'http://api.stscp.cn',

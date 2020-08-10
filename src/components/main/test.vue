@@ -2,7 +2,7 @@
   <!-- 待质检 -->
   <div class="table">
     <el-table :data="data">
-      <el-table-column prop="ApprizeId" label="订单编号" :span="2"></el-table-column>
+      <el-table-column prop="OrderId" label="订单编号" :span="2"></el-table-column>
       <el-table-column prop="SellerRealName" label="卖家姓名" :span="2"></el-table-column>
 
       <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>
@@ -13,7 +13,7 @@
 
       <el-table-column fixed="right" label="操作" :span="2">
         <template slot-scope="scope">
-          <evalDialiog :chuanId="scope.row.OrderId" :state="true" @changeState="init"></evalDialiog>
+          <evalDialiog :chuanId="scope.row.OrderId" :state="true" :gujia='scope.row.ApprizeAmount' @changeState="init"></evalDialiog>
           <payback :payBackId="scope.row.OrderId" @changeState="init"></payback>
         </template>
       </el-table-column>
