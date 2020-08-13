@@ -51,10 +51,8 @@
         <el-table-column prop="SpuName" label="SpuName" :span="2"></el-table-column>
         <el-table-column prop="CatName" label="CatName" :span="2"></el-table-column>
         <el-table-column prop="CreateTime" label="创建时间" :span="2"></el-table-column>
-        <el-table-column  label="是否关联过" :span="2">
-          <template slot-scope="scope">
-            {{scope.row.isTemplate?'已关联':'未关联'}}
-          </template>
+        <el-table-column label="是否关联过" :span="2">
+          <template slot-scope="scope">{{scope.row.isTemplate?'已关联':'未关联'}}</template>
         </el-table-column>
         <el-table-column fixed="right" label="操作" :span="2">
           <template slot-scope="scope">
@@ -177,6 +175,15 @@ export default {
   },
   mounted() {
     this.init();
+  },
+  beforeRouteEnter(to, from, next) {
+    let isAdmin = sessionStorage.getItem("isAdmin");
+    if (isAdmin != 1) {
+      alert("¿¿你想干嘛??");
+      next("/index/jewelry");
+      return;
+    }
+    next();
   },
   watch: {},
   computed: {

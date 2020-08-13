@@ -30,8 +30,7 @@ const unusual=()=>import('../components/main/unusual')
 const close = () => import("../components/main/close");
 //待客户确认关闭订单
 const hastest = () => import("../components/main/hastest");
-//添加管理员
-const addAdmin = () => import("../components/main/addAdmin");
+
 export default {
   props: [],
   components: {
@@ -47,7 +46,6 @@ export default {
     paid,
     unusual,
     hastest,
-    addAdmin
   },
   data() {
     return {

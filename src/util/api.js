@@ -26,7 +26,19 @@ const addMuBan = baseUrl + '/SpuManage/SpuAdd'
 //关联
 const guanlian = baseUrl + '/SpuManage/SpuAndQuestionnaire'
 // cs
-const question=baseUrl+'/SpuManage/QuestionnaireAdd'
+const question = baseUrl + '/SpuManage/QuestionnaireAdd'
+//管理员身份列表
+const roleList = baseUrl + '/AdminManage/RoleList'
+//添加管理员
+const AdminAdd = baseUrl + '/AdminManage/AdminAdd'
+//管理员页列表
+const AdminList = baseUrl + '/AdminManage/AdminList'
+//查看管理员
+const lookAdmin = baseUrl + '/AdminManage/AdminDetail'
+//修改
+const upDate = baseUrl + '/AdminManage/AdminEdit'
+//删除
+const delAdmin = baseUrl + '/AdminManage/AdminDisable'
 export default {
   login,
   logOut,
@@ -41,5 +53,11 @@ export default {
   MuBan,
   addMuBan,
   guanlian,
-  question
+  question,
+  roleList,
+  AdminAdd,
+  AdminList,
+  lookAdmin,
+  upDate,
+  delAdmin
 }

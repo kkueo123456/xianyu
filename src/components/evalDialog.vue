@@ -90,7 +90,7 @@
           ></el-input>
         </div>
         <div class="no-price">
-          <el-radio v-model="form.PriceRadio" :label="0" @change="isDisabled" :disabled="state">暂无报价</el-radio>
+          <el-radio v-model="form.PriceRadio" :label="0" @change="isDisabled" v-if="!state">暂无报价</el-radio>
           <el-radio v-model="form.PriceRadio" :label="1" @change="isDisabled">有报价</el-radio>
         </div>
       </div>
@@ -208,7 +208,7 @@ export default {
     //暂无报价控制Input
     isDisabled() {
       !this.form.PriceRadio
-        ? ((this.disable = true), (this.form.evalInput = "0.01"))
+        ? ((this.disable = true), (this.form.evalInput = "0"))
         : (this.disable = false);
     },
     //估价确定
@@ -327,11 +327,12 @@ export default {
       this.surePublic(testData);
     },
     surePublic(data) {
+      console.log(this.form.evalInput );
       //最大9位 最多保留两位小数点
       let re = /^(([1-9]{1}\d{0,6})|(0{1}))(\.\d{0,2})?$/;
       if (
-        (this.form.evalInput == "" && this.form.PriceRadio) ||
-        !re.test(this.form.evalInput)
+        (this.form.evalInput === "" && this.form.PriceRadio != 0) ||
+        (this.form.PriceRadio != 0 && !re.test(this.form.evalInput))
       ) {
         this.$message({
           type: "error",

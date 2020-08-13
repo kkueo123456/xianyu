@@ -10,11 +10,8 @@
         </el-breadcrumb>
       </div>
       <div class="headSpace-right">
-        <a
-          href="http://192.168.31.99:8010/Auth/Refresh"
-          class="shouquan"
-          @click="auth"
-        >点击进行授权</a>
+        <span>welcome：{{name}}</span>
+        <a href="http://192.168.31.99:8010/Auth/Refresh" class="shouquan" @click="auth">点击授权</a>
         <div>
           <el-dropdown @command="logOut">
             <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
@@ -33,7 +30,9 @@ export default {
   props: [],
   components: {},
   data() {
-    return {};
+    return {
+      name: "",
+    };
   },
   methods: {
     logOut() {
@@ -58,11 +57,12 @@ export default {
         });
     },
     //授权
-    auth() {
-  
-    },
+    auth() {},
   },
-  mounted() {},
+  mounted() {
+    let getName = sessionStorage.getItem("name");
+    this.name = getName;
+  },
   watch: {},
   computed: {},
 };
@@ -79,6 +79,12 @@ export default {
 .headWrap .headSpace h3 {
   font-size: 20px;
   margin-bottom: 5px;
+}
+
+.headSpace-right span {
+  margin-right: 20px;
+  font-size: 13px;
+  line-height: 45px;
 }
 
 .headSpace-right {

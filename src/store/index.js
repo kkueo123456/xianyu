@@ -132,6 +132,32 @@ const actions = {
 
     })
   },
+  // 管理员页列表
+  getAdminData(context) {
+    let text = '请稍等数据加载'
+    let lod = Loading.service({
+      target: '.main',
+      text,
+    });
+    return axios({
+      url: API.AdminList,
+      method: "post",
+    }).then(res => {
+      console.log(res)
+      //close
+      lod.close()
+      let data = {
+        mainData: res.Data,
+        pageData: res.ListCount
+      }
+      context.commit('mainData', data)
+
+    }).catch(err => {
+      //close
+      lod.close()
+
+    })
+  }
 }
 const getters = {
   data(state) {

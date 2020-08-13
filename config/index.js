@@ -11,10 +11,10 @@ module.exports = {
     assetsPublicPath: '/', //这里修改
     proxyTable: {
       '/api': {
-        target: 'http://api.stscp.cn',
+        target: 'http://192.168.31.99:8011',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': 'http://api.stscp.cn'
+          '^/api': 'http://192.168.31.99:8011'
         }
       }
     },

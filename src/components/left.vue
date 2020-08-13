@@ -4,9 +4,15 @@
     <el-col :span="24">
       <h3>LiangCheng</h3>
       <el-menu default-active="1" class="el-menu-vertical-demo" :router="true">
-        <el-menu-item v-for="(item,i) in navList" :index="item.name" :key="i" mode="horizontal">
+        <el-menu-item
+          v-for="(item,i) in navList"
+          :index="item.name"
+          :key="i"
+          mode="horizontal"
+          :disabled="item.disable"
+        >
           <i :class="[item.ico]"></i>
-          <el-badge :value="item.num[i]" class="item">{{item.navItem}}</el-badge>
+          <el-badge class="item">{{item.navItem}}</el-badge>
         </el-menu-item>
       </el-menu>
     </el-col>
@@ -48,15 +54,26 @@ export default {
           navItem: "配置模板",
           ico: "el-icon-toilet-paper",
           num: 0,
+          disable: true,
+        },
+        {
+          name: "/index/addAdmin",
+          navItem: "添加管理员",
+          ico: "el-icon-s-custom",
+          disable: true,
         },
       ],
+      admin: 1,
       numList: [],
     };
   },
   methods: {},
   mounted() {
+    let isAdmin = sessionStorage.getItem("isAdmin");
     this.navList.forEach((item) => {
-      item.num = this.numList;
+      if (isAdmin == 1) {
+        item.disable = false;
+      }
     });
   },
   watch: {},

@@ -14,6 +14,9 @@ const watch = () => import('../pages/watch')
 const another = () => import('../pages/another')
 //配置spu
 const spu = () => import('../pages/spu')
+//添加管理员
+const addAdmin = () => import('../pages/addAdmin')
+
 Vue.use(Router)
 
 export default new Router({
@@ -49,6 +52,12 @@ export default new Router({
           component: spu,
           name: 'spu',
           meta: ['配置spu']
+        },
+        {
+          path: 'addAdmin',
+          component: addAdmin,
+          name: 'addAdmin',
+          meta: ['添加管理员']
         },
         {
           path: '',
