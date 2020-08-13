@@ -12,11 +12,11 @@
         <el-form-item label="密码">
           <el-input type="password" v-model="form.password" autocomplete="off" show-password></el-input>
         </el-form-item>
-        <el-form-item label="手机号">
-          <el-input type="phone" v-model="form.phone" autocomplete="off" show-password></el-input>
-        </el-form-item>
         <el-form-item label="确认密码">
           <el-input type="password" v-model="form.surePassword" autocomplete="off" show-password></el-input>
+        </el-form-item>
+        <el-form-item label="手机号">
+          <el-input type="phone" v-model="form.phone" autocomplete="off" show-password></el-input>
         </el-form-item>
         <el-form-item label="身份">
           <el-select v-model="form.userIde" placeholder="请选择身份">
@@ -51,7 +51,7 @@ export default {
         password: "",
         surePassword: "",
         userIde: "",
-        phone:''
+        phone: "",
       },
       roleList: [],
     };
@@ -88,7 +88,7 @@ export default {
             password: this.form.password,
             realName: this.form.realName,
             roleId: this.form.userIde,
-            Mobile:this.form.phone
+            Mobile: this.form.phone,
           },
         })
           .then((res) => {

@@ -5,6 +5,7 @@
       <el-table :data="data">
         <el-table-column prop="LoginName" label="用户名" :span="2"></el-table-column>
         <el-table-column prop="RealName" label="真实姓名" :span="2"></el-table-column>
+        <el-table-column prop="Mobile" label="手机号" :span="2"></el-table-column>
         <el-table-column prop="RoleName" label="身份" :span="2"></el-table-column>
         <el-table-column fixed="right" label="操作" :span="2">
           <template slot-scope="scope">

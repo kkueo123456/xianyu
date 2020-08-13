@@ -14,8 +14,8 @@ Vue.use(ElementUI);
 //axios
 import axios from 'axios'
 axios.interceptors.response.use(res => {
-  console.log("---" + res.config.url + "--------")
-  console.log(res.data)
+  // console.log("---" + res.config.url + "--------")
+  // console.log(res.data)
   if (res.data.data == -1) {
     router.push('/login')
   }

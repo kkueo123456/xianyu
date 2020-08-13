@@ -73,7 +73,7 @@ export default {
       this.init();
       this.dialogFormVisible = true;
       let lod = Loading.service({
-        text: "数据提交中",
+        text: "请稍等",
         spinner: "el-icon-loading",
       });
       this.$axios({
@@ -93,7 +93,6 @@ export default {
     },
     sure() {
       let { LoginName, RealName, AdminRoleId, password, Mobile } = this.data;
-
       let reg = /^[1][3,4,5,6,7,8,9][\d]{9}$/;
       if (reg.test(Mobile)) {
         let lod = Loading.service({
