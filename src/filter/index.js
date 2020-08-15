@@ -1,11 +1,11 @@
 import transPrice from './transPrice'
 import transTime from './transTime'
-import transPri from './transPri'
+import transPic from './transPic'
 import timeFilter from './timeFilter'
 
 export default {
     transPrice,
     transTime,
-    transPri,
+    transPic,
     timeFilter
 }

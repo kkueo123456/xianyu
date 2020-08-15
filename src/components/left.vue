@@ -50,9 +50,21 @@ export default {
           num: 0,
         },
         {
+          name: "/index/allEvaluate",
+          navItem: "全部估价页",
+          ico: "el-icon-s-finance",
+          num: 0,
+        },
+          {
+          name: "/index/allOrder",
+          navItem: "全部订单页",
+          ico: "el-icon-s-order",
+          num: 0,
+        },
+        {
           name: "/index/spu",
           navItem: "配置模板",
-          ico: "el-icon-toilet-paper",
+          ico: "el-icon-question",
           num: 0,
           disable: true,
         },

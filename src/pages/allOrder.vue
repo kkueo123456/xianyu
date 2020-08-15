@@ -1,0 +1,190 @@
+<template>
+  <!-- 全部订单 -->
+  <div class="wrap">
+    <!-- 下拉框 -->
+    <div class="selectWrap">
+      <el-select v-model="value" placeholder="类型筛选" @change="chooseType">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        ></el-option>
+      </el-select>
+      <el-select v-model="stateValue" placeholder="状态筛选" @change="chooseState">
+        <el-option v-for="item in state" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      </el-select>
+    </div>
+    <!-- 主页面列表 -->
+    <div class="table">
+      <el-table :data="data">
+        <el-table-column prop="OrderId" label="订单编号" :span="2"></el-table-column>
+        <el-table-column prop="ApprizeAmount" label="估价" :span="2"></el-table-column>
+        <el-table-column prop="ConfirmFee" label="质检价" :span="2"></el-table-column>
+        <el-table-column prop="SellerRealName" label="卖家姓名" :span="2"></el-table-column>
+        <el-table-column prop="SellerAddress" label="卖家地址" :span="2"></el-table-column>
+        <el-table-column prop="SellerPhone" label="卖家手机" :span="2"></el-table-column>
+        <el-table-column prop="RateContent" label="评价" :span="2">
+          <template
+            slot-scope="scope"
+          >{{scope.row.OrderStatus==5&&'待卖家评价'||scope.row.OrderStatus==6&&'待评价'||scope.row.OrderStatus==7&&scope.row.RateContent||scope.row.OrderStatus==103&&scope.row.Reason||'无'}}</template>
+        </el-table-column>
+        <el-table-column label="订单状态" :span="2">
+          <template
+            slot-scope="scope"
+          >{{scope.row.OrderStatus==2&&"待质检"||scope.row.OrderStatus==3&&"已质检"||scope.row.OrderStatus==7&&"交易成功/评价完成"||scope.row.OrderStatus==6&&"交易成功/待评价"||scope.row.OrderStatus==5&&"交易成功/待卖家评价"||scope.row.OrderStatus==101&&"已退货"||(scope.row.OrderStatus==103||scope.row.OrderStatus==102)&&"取消的订单"||scope.row.OrderStatus==4&&'待回收商确认'||scope.row.OrderStatus==100&&'待退货'}}</template>
+        </el-table-column>
+        <!-- <el-table-column fixed="right" label="操作" :span="2">
+          <template slot-scope="scope">
+          </template>
+        </el-table-column>-->
+      </el-table>
+      <!-- 分页 -->
+      <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
+    </div>
+  </div>
+</template>
+<script>
+import { mapGetters } from "vuex";
+import { Loading } from "element-ui";
+import checkPage from "../components/checkPage";
+import API from "../util/api";
+export default {
+  props: [],
+  components: {
+    checkPage,
+  },
+  data() {
+    return {
+      pageN: 0,
+      requestData: {
+        page: 1,
+        supCategoryName: "",
+      },
+      //分类form
+      options: [
+        {
+          value: "",
+          label: "全部类型",
+        },
+        {
+          value: "首饰",
+          label: "首饰",
+        },
+        {
+          value: "箱包",
+          label: "箱包",
+        },
+        {
+          value: "腕表",
+          label: "腕表",
+        },
+        {
+          value: "其他",
+          label: "其他",
+        },
+      ],
+      value: "",
+      state: [
+        {
+          value: "",
+          label: "全部状态",
+        },
+        {
+          value: "2",
+          label: "待质检",
+        },
+        {
+          value: "3",
+          label: "已质检",
+        },
+        {
+          value: "4",
+          label: "待回收商确认",
+        },
+        {
+          value: "5",
+          label: "交易成功",
+        },
+        {
+          value: "101",
+          label: "已退货",
+        },
+        {
+          value: "103",
+          label: "取消的订单",
+        },
+
+        {
+          value: "100",
+          label: "待退货",
+        },
+      ],
+      stateValue: "",
+    };
+  },
+  methods: {
+    // 类型筛选
+    chooseType(val) {
+      this.requestData.supCategoryName = val;
+      this.init();
+    },
+    //状态筛选
+    chooseState(val) {
+      this.requestData.orderStatus = val;
+      this.init();
+    },
+    //跳页
+    jumpPage(val) {
+      this.requestData.page = val;
+      this.init();
+    },
+    //初始化
+    init() {
+      this.$store.dispatch("getOrderData", this.requestData);
+    },
+  },
+  mounted() {
+    this.init();
+  },
+
+  watch: {},
+  computed: {
+    ...mapGetters(["data", "Pagelist"]),
+  },
+};
+</script>
+<style lang="stylus" scoped>
+@import '../stylus/index.styl';
+
+.wrap /deep/ .el-select {
+  margin-left: 5px;
+}
+
+.wrap /deep/ .el-input__inner {
+  border-color: $primary;
+}
+
+.selectWrap {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.table {
+  background-color: white;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.table /deep/ .cell {
+  text-align: center;
+}
+
+.table .el-table /deep/ thead {
+  color: $primary;
+}
+</style>

@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+//全部估价页
+const allEvaluate = () => import('../pages/allEvaluate')
+//全部订单页
+const allOrder = () => import('../pages/allOrder')
 //首页
 const index = () => import('../pages/index')
 //登录
@@ -46,6 +50,18 @@ export default new Router({
           component: another,
           name: 'another',
           meta: ['其他']
+        },
+        {
+          path: 'allEvaluate',
+          component: allEvaluate,
+          name: 'allEvaluate',
+          meta: ['全部估价页']
+        },
+        {
+          path: 'allOrder',
+          component: allOrder,
+          name: 'allOrder',
+          meta: ['全部订单页']
         },
         {
           path: 'spu',

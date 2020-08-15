@@ -69,14 +69,12 @@
 import { mapGetters } from "vuex";
 import { Loading } from "element-ui";
 import checkPage from "../components/checkPage";
-import payback from "../components/payback";
 import addSpu from "../components/addSpu/addspu";
 import API from "../util/api";
 export default {
   props: [],
   components: {
     checkPage,
-    payback,
     addSpu,
   },
   data() {

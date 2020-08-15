@@ -1,5 +1,5 @@
 <template>
-  <!-- 已退货 -->
+  <!-- 已质检-->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="OrderId" label="订单编号" :span="2"></el-table-column>
