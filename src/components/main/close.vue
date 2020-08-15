@@ -3,6 +3,7 @@
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="OrderId" label="订单编号" :span="2"></el-table-column>
+      <el-table-column prop="AdminName" label="管理员" :span="2"></el-table-column>
       <el-table-column prop="SellerRealName" label="卖家姓名" :span="2"></el-table-column>
       <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>
       <el-table-column prop="SellerAddress" label="地址" :span="2"></el-table-column>
@@ -15,14 +16,11 @@
   </div>
 </template>
 <script>
-import API from "../../util/api";
 import { mapGetters } from "vuex";
-import evalDialiog from "../../components/evalDialog";
 import checkPage from "../checkPage";
 export default {
   props: [],
   components: {
-    evalDialiog,
     checkPage,
   },
   data() {

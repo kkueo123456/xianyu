@@ -30,7 +30,8 @@ const unusual=()=>import('../components/main/unusual')
 const close = () => import("../components/main/close");
 //待客户确认关闭订单
 const hastest = () => import("../components/main/hastest");
-
+//已质检
+const testSuccess = () => import("../components/main/testSuccess");
 export default {
   props: [],
   components: {
@@ -46,6 +47,7 @@ export default {
     paid,
     unusual,
     hastest,
+    testSuccess
   },
   data() {
     return {

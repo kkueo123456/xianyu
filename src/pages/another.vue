@@ -28,9 +28,10 @@ const back = () => import("../components/main/back");
 const unusual=()=>import('../components/main/unusual')
 //交易关闭
 const close = () => import("../components/main/close");
-//已质检
+//回收商确认
 const hastest = () => import("../components/main/hastest");
-
+//已质检
+const testSuccess = () => import("../components/main/testSuccess");
 export default {
   props: [],
   components: {
@@ -46,6 +47,7 @@ export default {
     paid,
     unusual,
     hastest,
+    testSuccess
   },
   data() {
     return {

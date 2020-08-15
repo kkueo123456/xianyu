@@ -3,8 +3,8 @@
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="OrderId" label="订单编号" :span="2"></el-table-column>
+      <el-table-column prop="AdminName" label="管理员" :span="2"></el-table-column>
       <el-table-column prop="SellerRealName" label="卖家姓名" :span="2"></el-table-column>
-
       <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>
       <el-table-column prop="SellerAddress" label="地址" :span="2"></el-table-column>
       <el-table-column prop="GmtCreate" label="创建时间" :span="2" sortable></el-table-column>
