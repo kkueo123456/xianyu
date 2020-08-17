@@ -7,9 +7,9 @@
         <innerDialog :MuBanData="data" @getList="update"></innerDialog>
       </div>
       <el-table :data="data">
-        <el-table-column prop="prodName" label="名称" :span="2"></el-table-column>
-        <el-table-column prop="quoteType" label="延迟报价" :span="2"></el-table-column>
-        <el-table-column fixed="right" label="操作" :span="2">
+        <el-table-column prop="prodName" label="名称"></el-table-column>
+        <el-table-column prop="quoteType" label="延迟报价"></el-table-column>
+        <el-table-column fixed="right" label="操作">
           <template slot-scope="scope">
             <guanlian :mubanid="scope.row.Id" :spuId="spuId"></guanlian>
           </template>
@@ -64,7 +64,7 @@ export default {
       this.outerVisible = true;
       let lod = Loading.service({
         text: "加载中",
-        target:'.el-dialog__body'
+        target: ".el-dialog__body",
       });
       this.$axios({
         url: API.MuBan,

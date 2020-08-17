@@ -2,14 +2,14 @@
   <!-- 待估价 -->
   <div class="table">
     <el-table :data="data">
-      <el-table-column prop="QuoteId" label="估价编号" :span="2"></el-table-column>
-      <!-- <el-table-column prop="user" label="用户" :span="2"></el-table-column> -->
-      <el-table-column prop="SceneType" label="类别" :span="2"></el-table-column>
-      <el-table-column prop="CreateTime" label="创建时间" sortable :span="2"></el-table-column>
-      <el-table-column label="报价截止" :span="2">
+      <el-table-column prop="QuoteId" label="估价编号"></el-table-column>
+      <!-- <el-table-column prop="user" label="用户"  ></el-table-column> -->
+      <el-table-column prop="SceneType" label="类别"></el-table-column>
+      <el-table-column prop="CreateTime" label="创建时间" sortable></el-table-column>
+      <el-table-column label="报价截止">
         <template slot-scope="scope">{{scope.row.TimeLimit|transTime}}</template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" :span="2">
+      <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <evalDialiog
             :chuanId="scope.row.QuoteId"

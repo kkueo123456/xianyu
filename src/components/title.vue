@@ -89,7 +89,6 @@ export default {
 
 .headSpace-right {
   display: flex;
-  padding-right: 30px;
 }
 
 .shouquan {

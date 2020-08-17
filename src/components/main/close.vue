@@ -2,14 +2,14 @@
   <!-- 已退货 -->
   <div class="table">
     <el-table :data="data">
-      <el-table-column prop="OrderId" label="订单编号" :span="2"></el-table-column>
-      <el-table-column prop="AdminName" label="管理员" :span="2"></el-table-column>
-      <el-table-column prop="SellerRealName" label="卖家姓名" :span="2"></el-table-column>
-      <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>
-      <el-table-column prop="SellerAddress" label="地址" :span="2"></el-table-column>
-      <el-table-column prop="GmtCreate" label="创建时间" :span="2" sortable></el-table-column>
-      <el-table-column prop="ApprizeAmount" label="预估价" :span="2"></el-table-column>
-      <el-table-column prop="ConfirmFee" label="质检价" :span="2"></el-table-column>
+      <el-table-column prop="OrderId" label="订单编号"></el-table-column>
+      <el-table-column prop="AdminName" label="管理员"></el-table-column>
+      <el-table-column prop="SellerRealName" label="卖家姓名"></el-table-column>
+      <el-table-column prop="SellerPhone" label="用户手机"></el-table-column>
+      <el-table-column prop="SellerAddress" label="地址"></el-table-column>
+      <el-table-column prop="GmtCreate" label="创建时间" sortable></el-table-column>
+      <el-table-column prop="ApprizeAmount" label="预估价"></el-table-column>
+      <el-table-column prop="ConfirmFee" label="质检价"></el-table-column>
     </el-table>
     <!-- 分页 -->
     <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>

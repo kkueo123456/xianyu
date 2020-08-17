@@ -1,5 +1,5 @@
 <template>
-<!-- 添加模板 -->
+  <!-- 添加模板 -->
   <div class="spuWrap">
     <el-button @click="innerAdd">添加新的模板</el-button>
     <el-dialog width="45%" title="新模板" :visible.sync="innerVisible" :modal-append-to-body="false">
@@ -22,19 +22,19 @@
       <addPicture @addQuestion="addDataList"></addPicture>
       <!-- 列表 -->
       <el-table :data="data">
-        <el-table-column prop="name" label="示例图标题" :span="2"></el-table-column>
-        <el-table-column label="显示提示" :span="2">
+        <el-table-column prop="name" label="示例图标题"></el-table-column>
+        <el-table-column label="显示提示">
           <template slot-scope="scope">{{scope.row.Tips[0].tipText}}</template>
         </el-table-column>
-        <el-table-column label="图片" :span="2">
+        <el-table-column label="图片">
           <template slot-scope="scope">
             <img :src="scope.row.Tips[0].picUrl" alt style="width:50px;height:50px" />
           </template>
         </el-table-column>
-        <el-table-column prop="required" label="是否必填" :span="2">
+        <el-table-column prop="required" label="是否必填">
           <template slot-scope="scope">{{scope.row.required?"是":'否'}}</template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" :span="2">
+        <el-table-column fixed="right" label="操作">
           <template slot-scope="scope">
             <el-button type="text" @click="del(scope.row)">删除</el-button>
           </template>

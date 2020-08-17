@@ -2,14 +2,14 @@
   <!-- 待收货 -->
   <div class="table">
     <el-table :data="data">
-      <el-table-column prop="num" label="订单编号" :span="2"></el-table-column>
-      <el-table-column prop="class" label="类别" :span="2"></el-table-column>
-      <el-table-column prop="user" label="用户" :span="2"></el-table-column>
-      <el-table-column prop="time" label="创建时间" :span="2" sortable></el-table-column>
-      <el-table-column prop="price" label="预估价" :span="2"></el-table-column>
-      <el-table-column prop="state" label="订单状态" :span="2"></el-table-column>
+      <el-table-column prop="num" label="订单编号"></el-table-column>
+      <el-table-column prop="class" label="类别"></el-table-column>
+      <el-table-column prop="user" label="用户"></el-table-column>
+      <el-table-column prop="time" label="创建时间" sortable></el-table-column>
+      <el-table-column prop="price" label="预估价"></el-table-column>
+      <el-table-column prop="state" label="订单状态"></el-table-column>
 
-      <el-table-column fixed="right" label="操作" :span="2">
+      <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="refund(scope.row.id)" :disabled="false">到货</el-button>
           <payback :payBackId="scope.row.id" @changeState="init"></payback>
@@ -29,15 +29,15 @@ export default {
   props: [],
   components: {
     checkPage,
-    payback
+    payback,
   },
   data() {
     return {
       pageN: 0,
       requestData: {
         type: "",
-        state: "delivered"
-      }
+        state: "delivered",
+      },
     };
   },
   methods: {
@@ -51,18 +51,18 @@ export default {
       this.$confirm("是否撤销退款?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           this.$message({
             type: "success",
-            message: "确认撤销!" + id
+            message: "确认撤销!" + id,
           });
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消"
+            message: "已取消",
           });
         });
     },
@@ -82,7 +82,7 @@ export default {
           this.requestData.type = "another";
           break;
       }
-    }
+    },
   },
   mounted() {
     this.init();
@@ -90,8 +90,8 @@ export default {
   },
   watch: {},
   computed: {
-    ...mapGetters(["data"])
-  }
+    ...mapGetters(["data"]),
+  },
 };
 </script>
 <style lang="stylus" scoped>

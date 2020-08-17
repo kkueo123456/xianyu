@@ -2,21 +2,21 @@
   <!-- 交易成功 -->
   <div class="table">
     <el-table :data="data">
-      <el-table-column prop="OrderId" label="订单编号" :span="2"></el-table-column>
-      <el-table-column prop="AdminName" label="管理员" :span="2"></el-table-column>
-      <el-table-column prop="SellerRealName" label="卖家姓名" :span="2"></el-table-column>
-      
-      <el-table-column prop="SellerPhone" label="用户手机" :span="2"></el-table-column>
-      <el-table-column prop="SellerAddress" label="地址" :span="2"></el-table-column>
-      <el-table-column prop="GmtCreate" label="创建时间" :span="2" sortable></el-table-column>
-      <el-table-column prop="ConfirmFee" label="质检价" :span="2"></el-table-column>
-      <el-table-column label="评价状态" :span="2">
+      <el-table-column prop="OrderId" label="订单编号"></el-table-column>
+      <el-table-column prop="AdminName" label="管理员"></el-table-column>
+      <el-table-column prop="SellerRealName" label="卖家姓名"></el-table-column>
+
+      <el-table-column prop="SellerPhone" label="用户手机"></el-table-column>
+      <el-table-column prop="SellerAddress" label="地址"></el-table-column>
+      <el-table-column prop="GmtCreate" label="创建时间" sortable></el-table-column>
+      <el-table-column prop="ConfirmFee" label="质检价"></el-table-column>
+      <el-table-column label="评价状态">
         <template
           slot-scope="scope"
         >{{scope.row.OrderStatus==5&&'待卖家评价'||scope.row.OrderStatus==6&&'待评价'||scope.row.OrderStatus==7&&'评价完成'}}</template>
       </el-table-column>
-      <el-table-column prop="RateContent" label="评价内容" :span="2"></el-table-column>
-      <el-table-column fixed="right" label="操作" :span="2">
+      <el-table-column prop="RateContent" label="评价内容"></el-table-column>
+      <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="say(scope.row.OrderId)" v-if="scope.row.OrderStatus==6">评价</el-button>
           <el-dialog title="输入评价" :visible.sync="sayDialog" width="30%" :append-to-body="true">

@@ -46,15 +46,15 @@
     <!-- 主页面列表 -->
     <div class="table">
       <el-table :data="data">
-        <el-table-column prop="SpuId" label="SpuId" :span="2"></el-table-column>
-        <el-table-column prop="CatId" label="CatId" :span="2"></el-table-column>
-        <el-table-column prop="SpuName" label="SpuName" :span="2"></el-table-column>
-        <el-table-column prop="CatName" label="CatName" :span="2"></el-table-column>
-        <el-table-column prop="CreateTime" label="创建时间" :span="2"></el-table-column>
-        <el-table-column label="是否关联过" :span="2">
+        <el-table-column prop="SpuId" label="SpuId"></el-table-column>
+        <el-table-column prop="CatId" label="CatId"></el-table-column>
+        <el-table-column prop="SpuName" label="SpuName"></el-table-column>
+        <el-table-column prop="CatName" label="CatName"></el-table-column>
+        <el-table-column prop="CreateTime" label="创建时间"></el-table-column>
+        <el-table-column label="是否关联过">
           <template slot-scope="scope">{{scope.row.isTemplate?'已关联':'未关联'}}</template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" :span="2">
+        <el-table-column fixed="right" label="操作">
           <template slot-scope="scope">
             <addSpu :addId="scope.row.SpuId" v-if="scope.row.isTemplate==false"></addSpu>
           </template>
@@ -200,6 +200,7 @@ export default {
   background-color: white;
   padding-bottom: 20px;
   padding-top: 20px;
+  min-height: 65vh;
 }
 
 .table /deep/ .cell {
