@@ -5,7 +5,6 @@
     <div class="selectWrap">
       <!-- 类型筛选 -->
       <all-type @changeType="chooseType"></all-type>
-
       <!-- 是否估价 -->
       <el-select v-model="conditionValue" placeholder="状态筛选" @change="chooseCondition">
         <el-option
@@ -22,30 +21,21 @@
         <el-table-column type="expand">
           <template slot-scope="scope">
             <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="价格">
-                <span>{{scope.row.Price}}</span>
-              </el-form-item>
-              <el-form-item label="商品 ID">
+              <el-form-item label="商品类型">
                 <span>{{scope.row.SupCategoryName}}</span>
               </el-form-item>
-              <el-form-item label="店铺 ID">
-                <span>{{scope.row.CreateTime}}</span>
-              </el-form-item>
-              <el-form-item label="商品分类">
-                <span>{{scope.row.SupCategoryName}}</span>
-              </el-form-item>
-              <el-form-item label="店铺地址">
-                <span>{{scope.row.SupCategoryName}}</span>
-              </el-form-item>
-              <el-form-item label="商品描述">
-                <span>123456789012</span>
+              <el-form-item label="商品名称">
+                <span>{{scope.row.SpuName}}</span>
               </el-form-item>
             </el-form>
           </template>
         </el-table-column>
         <el-table-column prop="QuoteId" label="估价编号"></el-table-column>
         <el-table-column prop="Price" label="估价"></el-table-column>
+        <el-table-column prop="UserId" label="用户id"></el-table-column>
         <el-table-column prop="SupCategoryName" label="商品类型"></el-table-column>
+        <el-table-column prop="SpuName" label="商品名称"></el-table-column>
+
         <el-table-column label="图片(1张)">
           <template slot-scope="scope">
             <img :src="scope.row.Questionnaire|transPic" style="width:50px;height:50px" alt />
@@ -147,14 +137,15 @@ export default {
   width: 100px;
   color: #99a9bf;
   font-weight: bold;
-  text-align center
+  text-align: left;
+  margin-left: 30px;
 }
 
 .demo-table-expand .el-form-item {
   margin-right: 0;
   margin-bottom: 0;
   text-align: left;
-  width: 40%;
+  width: 100%;
 }
 
 // 主体

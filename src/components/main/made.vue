@@ -1,5 +1,5 @@
 <template>
-  <!-- 已下单 -->
+  <!-- 已下单(暂时可以和待取件合成一个) -->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="OrderId" label="订单编号"></el-table-column>
@@ -10,7 +10,6 @@
       <el-table-column prop="GmtCreate" label="创建时间" sortable></el-table-column>
       <el-table-column prop="ApprizeAmount" label="预估价"></el-table-column>
       <el-table-column prop="ShipTime" label="取件时间"></el-table-column>
-
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="cancel(scope.row.OrderId)" style="color:red">取消订单</el-button>

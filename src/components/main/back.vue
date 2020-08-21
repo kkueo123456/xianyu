@@ -10,7 +10,6 @@
       <el-table-column prop="GmtCreate" label="创建时间" sortable></el-table-column>
       <el-table-column prop="ApprizeAmount" label="预估价"></el-table-column>
       <el-table-column prop="ConfirmFee" label="质检价"></el-table-column>
-
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="back(scope.row.OrderId)" style="color:red">退货</el-button>

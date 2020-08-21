@@ -65,7 +65,6 @@ const actions = {
         pageData: res.ListCount
       }
       context.commit('mainData', data)
-
     }).catch(err => {
       //close
       lod.close()
@@ -125,11 +124,9 @@ const actions = {
         pageData: res.ListCount
       }
       context.commit('mainData', data)
-
     }).catch(err => {
       //close
       lod.close()
-
     })
   },
   // 管理员页列表
@@ -151,11 +148,9 @@ const actions = {
         pageData: res.ListCount
       }
       context.commit('mainData', data)
-
     }).catch(err => {
       //close
       lod.close()
-
     })
   }
 }

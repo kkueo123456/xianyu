@@ -16,7 +16,7 @@ import axios from 'axios'
 axios.interceptors.response.use(res => {
   console.log("---" + res.config.url + "--------")
   console.log(res.data)
-  if (res.data.data == -1) {
+  if (res.data.Data[0] == -1) {
     router.push('/login')
   }
   return res.data;

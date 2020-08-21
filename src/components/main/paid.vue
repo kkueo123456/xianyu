@@ -1,5 +1,5 @@
 <template>
-  <!-- 待取件 -->
+  <!-- 待取件(暂时可以和已下单合成一个) -->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="OrderId" label="订单编号"></el-table-column>

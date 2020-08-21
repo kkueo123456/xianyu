@@ -14,23 +14,14 @@
         <el-table-column type="expand">
           <template slot-scope="scope">
             <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="所属店铺">
-                <span>{{scope.row.ApprizeAmount}}</span>
+              <el-form-item label="商品类型">
+                <span>{{scope.row.SupCategoryName}}</span>
               </el-form-item>
-              <el-form-item label="商品 ID">
-                <span>{{scope.row.ConfirmFee}}</span>
+              <el-form-item label="商品名称">
+                <span>{{scope.row.SpuName}}</span>
               </el-form-item>
-              <el-form-item label="店铺 ID">
-                <span>{{scope.row.SellerRealName}}</span>
-              </el-form-item>
-              <el-form-item label="商品分类">
-                <span>{{scope.row.SellerAddress}}</span>
-              </el-form-item>
-              <el-form-item label="店铺地址">
-                <span>{{scope.row.SellerPhone}}</span>
-              </el-form-item>
-              <el-form-item label="商品描述">
-                <span>123456789012</span>
+              <el-form-item label="物流单号">
+                <span>{{scope.row.ReturnMailNo}}</span>
               </el-form-item>
             </el-form>
           </template>
@@ -163,15 +154,15 @@ export default {
   width: 90px;
   color: #99a9bf;
   font-weight: bold;
-  text-align center
-
+  text-align: left;
+  margin-left: 30px;
 }
 
 .demo-table-expand .el-form-item {
   margin-right: 0;
   margin-bottom: 0;
   text-align: left;
-  width: 40%;
+  width: 100%;
 }
 
 // 主体
