@@ -8,7 +8,7 @@ module.exports = {
   dev: {
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/', //这里修改
+    assetsPublicPath: '/', 
     proxyTable: {
       '/api': {
         target: 'http://192.168.10.99:8011',

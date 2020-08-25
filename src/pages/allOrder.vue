@@ -3,10 +3,23 @@
   <div class="wrap">
     <!-- 下拉框 -->
     <div class="selectWrap">
-      <all-type @changeType="chooseType"></all-type>
-      <el-select v-model="stateValue" placeholder="状态筛选" @change="chooseState">
-        <el-option v-for="item in state" :key="item.value" :label="item.label" :value="item.value"></el-option>
-      </el-select>
+      <div>
+        <!-- 选择类型 -->
+        <all-type @changeType="chooseType"></all-type>
+        <!-- 状态筛选 -->
+        <el-select v-model="stateValue" placeholder="状态筛选" @change="chooseState">
+          <el-option
+            v-for="item in state"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+        <!-- 时间选择器 -->
+        <time-picker @timePicker="chooseDate"></time-picker>
+      </div>
+      <!-- 导出表格 -->
+      <excel :outPutData="data"></excel>
     </div>
     <!-- 主页面列表 -->
     <div class="table">
@@ -21,7 +34,7 @@
                 <span>{{scope.row.SpuName}}</span>
               </el-form-item>
               <el-form-item label="物流单号">
-                <span>{{scope.row.ReturnMailNo}}</span>
+                <span>{{scope.row.MailNo}}</span>
               </el-form-item>
             </el-form>
           </template>
@@ -33,20 +46,17 @@
         <el-table-column prop="SellerRealName" label="卖家姓名"></el-table-column>
         <el-table-column prop="SellerAddress" label="卖家地址"></el-table-column>
         <el-table-column prop="SellerPhone" label="卖家手机"></el-table-column>
-        <el-table-column prop="RateContent" label="评价">
+        <el-table-column prop="GmtCreate" label="创建时间"></el-table-column>
+        <!-- <el-table-column prop="RateContent" label="评价">
           <template
             slot-scope="scope"
           >{{scope.row.OrderStatus==5&&'待卖家评价'||scope.row.OrderStatus==6&&'待评价'||scope.row.OrderStatus==7&&scope.row.RateContent||scope.row.OrderStatus==103&&scope.row.Reason||'无'}}</template>
-        </el-table-column>
+        </el-table-column>-->
         <el-table-column label="订单状态">
           <template
             slot-scope="scope"
           >{{scope.row.OrderStatus==2&&"待质检"||scope.row.OrderStatus==3&&"已质检"||scope.row.OrderStatus==7&&"交易成功/评价完成"||scope.row.OrderStatus==6&&"交易成功/待评价"||scope.row.OrderStatus==5&&"交易成功/待卖家评价"||scope.row.OrderStatus==101&&"已退货"||(scope.row.OrderStatus==103||scope.row.OrderStatus==102)&&"取消的订单"||scope.row.OrderStatus==4&&'待回收商确认'||scope.row.OrderStatus==100&&'待退货'}}</template>
         </el-table-column>
-        <!-- <el-table-column fixed="right" label="操作"  >
-          <template slot-scope="scope">
-          </template>
-        </el-table-column>-->
       </el-table>
       <!-- 分页 -->
       <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
@@ -56,7 +66,9 @@
 <script>
 import { mapGetters } from "vuex";
 import { Loading } from "element-ui";
+import excel from "../components/allorder/excel";
 import allType from "../components/allType";
+import timePicker from "../components/allorder/timePicker";
 import checkPage from "../components/checkPage";
 import API from "../util/api";
 export default {
@@ -64,6 +76,8 @@ export default {
   components: {
     checkPage,
     allType,
+    timePicker,
+    excel,
   },
   data() {
     return {
@@ -71,6 +85,8 @@ export default {
       requestData: {
         page: 1,
         supCategoryName: "",
+        startDate: "",
+        endDate: "",
       },
 
       state: [
@@ -129,7 +145,16 @@ export default {
     },
     //初始化
     init() {
+      console.log(this.requestData);
       this.$store.dispatch("getOrderData", this.requestData);
+    },
+    //日期选择
+    chooseDate(val) {
+      if (val) {
+        this.requestData.startDate = val[0];
+        this.requestData.endDate = val[1];
+        this.init();
+      }
     },
   },
   mounted() {
@@ -144,6 +169,11 @@ export default {
 </script>
 <style lang="stylus" scoped>
 @import '../stylus/index.styl';
+
+.selectWrap {
+  display: flex;
+  justify-content: space-between;
+}
 
 // 隐藏栏
 .demo-table-expand {

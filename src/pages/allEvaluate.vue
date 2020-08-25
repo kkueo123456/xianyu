@@ -14,6 +14,7 @@
           :value="item.value"
         ></el-option>
       </el-select>
+      
     </div>
     <!-- 主页面列表 -->
     <div class="table">

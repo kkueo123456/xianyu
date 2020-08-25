@@ -30,11 +30,36 @@
     // });
     // console.log(`我叫${xiaohong.name}  我今年${xiaohong.age}了`);
     // xiaohong.age = "aa"
-    function Fn() {
-      let name = '123'
+
+
+
+    // function Fn() {
+    //   this.data2 = this.data()
+    //   console.log(this)
+    // }
+    // Fn.prototype.data = function () {
+    //   return {
+    //     a: 1,
+    //     b: 2
+    //   }
+    // }
+    // var obj = new Fn
+    // var obj2 = new Fn
+    // obj.data2.a = 4
+
+    let obj2 = {}
+    let obj = {
+      a: '1',
+      b: '2',
+      c: '3',
+      d: '4'
     }
-    console.log(Function.prototype.__proto__)
-   
+
+    console.log(Object.keys(obj))
+    Object.keys(obj).forEach(item => {
+      obj2[item] = obj[item]
+      console.log(obj2)
+    })
 
   </script>
 </body>

@@ -94,6 +94,11 @@
           <el-radio v-model="form.PriceRadio" :label="1" @change="isDisabled">有报价</el-radio>
         </div>
       </div>
+      <div class="TestTip" v-if="state==true">
+        <span>
+          <b style="color:red;text-align:left">如果鉴定为假货或无价值，请填写0.01</b>
+        </span>
+      </div>
       <div class="price-wrap">
         <span style="line-height:50px">
           <b style="color:red">*</b>评估结果
@@ -174,7 +179,6 @@ export default {
       isShow: false,
       skuId: "",
       srcList: null,
-
       // 估价input的状态
       disable: false,
       //图片
@@ -327,8 +331,8 @@ export default {
       this.surePublic(testData);
     },
     surePublic(data) {
-      console.log(this.form.evalInput );
-      //最大9位 最多保留两位小数点
+      console.log(this.form.evalInput);
+      //最大7位 最多保留两位小数点
       let re = /^(([1-9]{1}\d{0,6})|(0{1}))(\.\d{0,2})?$/;
       if (
         (this.form.evalInput === "" && this.form.PriceRadio != 0) ||
@@ -385,7 +389,7 @@ export default {
   },
   mounted() {
     this.form.sayMain = this.isTest
-      ? "质检评价"
+      ? "请输入质检评价"
       : "以上为参考价格，具体以实物鉴定为准。若下单邮寄，邮费到付";
   },
   watch: {},
@@ -431,7 +435,18 @@ export default {
 .radioGroup .el-radio-group /deep/ .el-radio {
   margin-right: 0;
 }
+// 提示
+.TestTip{
+  width 80%
+  margin 0 auto
+  display flex
 
+}
+.TestTip span b{
+  margin-left 10px
+  font-weight normal
+  font-size 12px
+}
 // 附件
 .title-wrap {
   width: 80%;

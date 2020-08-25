@@ -43,6 +43,9 @@ router.beforeEach((to, from, next) => {
 })
 //引入babel-polyfill
 import 'babel-polyfill'
+//  导入excel插件
+import XLSX from 'xlsx'
+Vue.prototype.XLSX = XLSX
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -4,6 +4,8 @@
     <el-table :data="data">
       <el-table-column prop="QuoteId" label="估价编号"></el-table-column>
       <el-table-column prop="UserId" label="用户id"  ></el-table-column>
+      <el-table-column prop="SpuName" label="商品名"  ></el-table-column>
+      <el-table-column prop="SupCategoryName" label="商品类型"  ></el-table-column>
       <el-table-column prop="SceneType" label="类别"></el-table-column>
       <el-table-column prop="CreateTime" label="创建时间" sortable></el-table-column>
       <el-table-column label="报价截止">
