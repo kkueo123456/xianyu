@@ -1,5 +1,5 @@
 <template>
-  <!-- 回收商确认 -->
+  <!-- 待质检 -->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="OrderId" label="订单编号"></el-table-column>
@@ -9,38 +9,42 @@
       <el-table-column prop="SellerAddress" label="地址"></el-table-column>
       <el-table-column prop="GmtCreate" label="创建时间" sortable></el-table-column>
       <el-table-column prop="ApprizeAmount" label="预估价"></el-table-column>
-      <el-table-column prop="ConfirmFee" label="质检价"></el-table-column>
-      <el-table-column label="操作">
+      <el-table-column prop="ShipTime" label="取件时间"></el-table-column>
+
+      <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
-          <!-- <evalDialiog
+          <evalDialiog
             :chuanId="scope.row.OrderId"
+            :chuanImg="scope.row.Questionnaire"
+            :state="true"
+            :gujia="scope.row.ApprizeAmount"
             @changeState="init"
-            :hasTest="true"
-          ></evalDialiog>-->
-          <el-button type="text" @click="sure(scope.row.OrderId)" style="color:red">确认订单</el-button>
+          ></evalDialiog>
+          <payback :payBackId="scope.row.OrderId" @changeState="init"></payback>
         </template>
       </el-table-column>
-      <!-- 分页 -->
-      <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
     </el-table>
+    <!-- 分页 -->
+    <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
   </div>
 </template>
 <script>
-import API from "../../util/api";
 import { mapGetters } from "vuex";
 import evalDialiog from "../../components/evalDialog";
 import checkPage from "../checkPage";
+import payback from "../payback";
 export default {
   props: [],
   components: {
     evalDialiog,
     checkPage,
+    payback,
   },
   data() {
     return {
-      pageN: 1,
+      pageN: 0,
       requestData: {
-        orderStatus: 4,
+        orderStatus: 2,
         page: 1,
         supCategoryName: "",
       },
@@ -52,6 +56,7 @@ export default {
       this.requestData.page = val;
       this.init();
     },
+
     //初始化
     init() {
       let routeName = this.$route.name;
@@ -61,29 +66,6 @@ export default {
         (routeName == "watch" && "腕表") ||
         (routeName == "another" && "其他");
       this.$store.dispatch("getOrderData", this.requestData);
-    },
-    //确认
-    sure(id) {
-      let orderPerformData = {
-        orderStatus: "5",
-        orderId: id,
-      };
-      this.$confirm("此操作将确认订单, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          this.$store.dispatch("getOrderPerform", orderPerformData).then(() => {
-            this.init();
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消",
-          });
-        });
     },
   },
   mounted() {

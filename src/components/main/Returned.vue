@@ -1,40 +1,37 @@
 <template>
-  <!-- 取消的订单 -->
+  <!-- 已退货 -->
   <div class="table">
     <el-table :data="data">
       <el-table-column prop="OrderId" label="订单编号"></el-table-column>
       <el-table-column prop="AdminName" label="管理员"></el-table-column>
+      <el-table-column label="图片(1张)">
+        <template slot-scope="scope">
+          <img :src="scope.row.Questionnaire|transPic" style="width:50px;height:50px" alt />
+        </template>
+      </el-table-column>
       <el-table-column prop="SellerRealName" label="卖家姓名"></el-table-column>
       <el-table-column prop="SellerPhone" label="用户手机"></el-table-column>
       <el-table-column prop="SellerAddress" label="地址"></el-table-column>
       <el-table-column prop="GmtCreate" label="创建时间" sortable></el-table-column>
       <el-table-column prop="ApprizeAmount" label="预估价"></el-table-column>
-      <el-table-column label="取消原因">
-        <template slot-scope="scope">{{scope.row.Reason?scope.row.Reason:scope.row.CloseReason}}</template>
-      </el-table-column>
-      <el-table-column label="取消人">
-        <template slot-scope="scope">{{scope.row.OrderStatus=='102'?'用户取消':'回收商取消'}}</template>
-      </el-table-column>
+      <el-table-column prop="ConfirmFee" label="质检价"></el-table-column>
     </el-table>
     <!-- 分页 -->
     <checkPage :pageNum="Pagelist" @jumpPage="jumpPage"></checkPage>
   </div>
 </template>
 <script>
-import API from "../../util/api";
 import { mapGetters } from "vuex";
-import evalDialiog from "../../components/evalDialog";
 import checkPage from "../checkPage";
 export default {
   props: [],
   components: {
-    evalDialiog,
     checkPage,
   },
   data() {
     return {
       requestData: {
-        orderStatus: 103,
+        orderStatus: 101,
         page: 1,
         supCategoryName: "",
       },

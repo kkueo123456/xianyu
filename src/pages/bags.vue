@@ -12,24 +12,24 @@ const NavHead = () => import("../components/head");
 const evaluate = () => import("../components/main/evaluate");
 // 待确认
 const waitSure = () => import("../components/main/waitSure");
-//待付款
-const made = () => import("../components/main/made");
+//已下单
+const OrderPlaced = () => import("../components/main/OrderPlaced");
 //待取件
-const paid = () => import("../components/main/paid");
-// 已取件
+const WillPickUp = () => import("../components/main/WillPickUp");
+// 已取件(作废)
 const delivered = () => import("../components/main/delivered");
 //未质检
-const test = () => import("../components/main/test");
+const WillTest = () => import("../components/main/WillTest");
 //交易完成
 const success = () => import("../components/main/success");
 //待退货
-const back = () => import("../components/main/back");
-// 异常
-const unusual=()=>import('../components/main/unusual')
-//交易关闭
-const close = () => import("../components/main/close");
-//待客户确认关闭订单
-const hastest = () => import("../components/main/hastest");
+const WillBack = () => import("../components/main/WillBack");
+//取消的订单
+const CancelOrder = () => import("../components/main/CancelOrder");
+//已退货
+const Returned = () => import("../components/main/Returned");
+//回收商确认
+const OurSure = () => import("../components/main/OurSure");
 //已质检
 const testSuccess = () => import("../components/main/testSuccess");
 export default {
@@ -38,15 +38,15 @@ export default {
     NavHead,
     evaluate,
     waitSure,
-    made,
-    test,
-    back,
+    OrderPlaced,
+    WillTest,
+    WillBack,
     success,
-    close,
+    Returned,
     delivered,
-    paid,
-    unusual,
-    hastest,
+    WillPickUp,
+    CancelOrder,
+    OurSure,
     testSuccess
   },
   data() {

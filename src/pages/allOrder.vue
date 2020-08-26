@@ -19,7 +19,7 @@
         <time-picker @timePicker="chooseDate"></time-picker>
       </div>
       <!-- 导出表格 -->
-      <excel :outPutData="data"></excel>
+      <excel @click.native="getData" :outPutRequestData="requestData" @changeState="init"></excel>
     </div>
     <!-- 主页面列表 -->
     <div class="table">
@@ -55,7 +55,7 @@
         <el-table-column label="订单状态">
           <template
             slot-scope="scope"
-          >{{scope.row.OrderStatus==2&&"待质检"||scope.row.OrderStatus==3&&"已质检"||scope.row.OrderStatus==7&&"交易成功/评价完成"||scope.row.OrderStatus==6&&"交易成功/待评价"||scope.row.OrderStatus==5&&"交易成功/待卖家评价"||scope.row.OrderStatus==101&&"已退货"||(scope.row.OrderStatus==103||scope.row.OrderStatus==102)&&"取消的订单"||scope.row.OrderStatus==4&&'待回收商确认'||scope.row.OrderStatus==100&&'待退货'}}</template>
+          >{{scope.row.OrderStatus==2&&"待质检"||scope.row.OrderStatus==3&&"已质检"||scope.row.OrderStatus==7&&"交易成功/评价完成"||scope.row.OrderStatus==6&&"交易成功/待评价"||scope.row.OrderStatus==5&&"交易成功/待卖家评价"||scope.row.OrderStatus==101&&"已退货"||(scope.row.OrderStatus==103||scope.row.OrderStatus==102)&&"取消的订单"||scope.row.OrderStatus==4&&'待回收商确认'||scope.row.OrderStatus==100&&'待退货'||scope.row.OrderStatus==1&&'待用户确认'}}</template>
         </el-table-column>
       </el-table>
       <!-- 分页 -->
@@ -67,7 +67,7 @@
 import { mapGetters } from "vuex";
 import { Loading } from "element-ui";
 import excel from "../components/allorder/excel";
-import allType from "../components/allType";
+import allType from "../components/allorder/allType";
 import timePicker from "../components/allorder/timePicker";
 import checkPage from "../components/checkPage";
 import API from "../util/api";
@@ -87,6 +87,7 @@ export default {
         supCategoryName: "",
         startDate: "",
         endDate: "",
+        pageSize: "",
       },
 
       state: [
@@ -128,6 +129,10 @@ export default {
     };
   },
   methods: {
+    //导出表格
+    getData() {
+      this.requestData.pageSize = this.Pagelist;
+    },
     // 类型筛选
     chooseType(val) {
       this.requestData.supCategoryName = val;
@@ -145,7 +150,7 @@ export default {
     },
     //初始化
     init() {
-      console.log(this.requestData);
+      this.requestData.pageSize = "";
       this.$store.dispatch("getOrderData", this.requestData);
     },
     //日期选择

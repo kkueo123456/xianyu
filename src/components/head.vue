@@ -36,20 +36,20 @@ export default {
           buttonIndex: "2",
         },
         {
-          buttonName: "made",
+          buttonName: "OrderPlaced",
           isDot: false,
           buttonText: "已下单",
           buttonIndex: "3",
         },
         {
-          buttonName: "paid",
+          buttonName: "WillPickUp",
           isDot: false,
           buttonText: "待取件",
           buttonIndex: "4",
         },
 
         {
-          buttonName: "test",
+          buttonName: "WillTest",
           isDot: false,
           buttonText: "未质检",
           buttonIndex: "6",
@@ -61,7 +61,7 @@ export default {
           buttonIndex: "7",
         },
         {
-          buttonName: "hastest",
+          buttonName: "OurSure",
           isDot: false,
           buttonText: "回收商确认",
           buttonIndex: "8",
@@ -73,19 +73,19 @@ export default {
           buttonIndex: "9",
         },
         {
-          buttonName: "back",
+          buttonName: "WillBack",
           isDot: false,
           buttonText: "待退货",
           buttonIndex: "10",
         },
         {
-          buttonName: "unusual",
+          buttonName: "CancelOrder",
           isDot: false,
           buttonText: "取消的订单",
           buttonIndex: "11",
         },
         {
-          buttonName: "close",
+          buttonName: "Returned",
           isDot: false,
           buttonText: "已退货",
           buttonIndex: "12",

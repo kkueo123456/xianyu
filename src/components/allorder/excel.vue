@@ -1,16 +1,20 @@
 <template>
   <!-- 导出excel -->
   <div>
-    <el-button @click="WillOutPut(outPutData)" type="primary" class="outExcel">导出表格</el-button>
+    <el-button @click="WillOutPut(outPutRequestData)" type="primary" class="outExcel">导出表格</el-button>
   </div>
 </template>
 <script>
+import API from "../../util/api";
+import { Loading } from "element-ui";
+
 export default {
-  props: ["outPutData"],
+  props: ["outPutRequestData"],
   components: {},
   data() {
     return {
       Datalist: null,
+      lod: null,
     };
   },
   methods: {
@@ -21,8 +25,26 @@ export default {
         type: "warning",
       })
         .then(() => {
-          this.Datalist = val;
-          this.outPutSure();
+          let text = "正在导出表格";
+          this.lod = Loading.service({
+            target: ".main",
+            spinner: "el-icon-loading",
+            text,
+          });
+          //白痴代码
+          this.$axios({
+            url: API.orderList,
+            method: "post",
+            params: val,
+          })
+            .then((res) => {
+              this.Datalist = res.Data;
+              this.outPutSure();
+              this.$emit("changeState");
+            })
+            .catch((err) => {
+              this.lod.close();
+            });
         })
         .catch(() => {
           this.$message({
@@ -32,6 +54,7 @@ export default {
         });
     },
     outPutSure() {
+      this.lod.close();
       require.ensure([], () => {
         const { export_json_to_excel } = require("../../excel/Export2Excel"); //注意这个Export2Excel路径
         const tHeader = [

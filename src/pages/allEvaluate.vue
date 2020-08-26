@@ -59,7 +59,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { Loading } from "element-ui";
-import allType from "../components/allType";
+import allType from "../components/allorder/allType";
 import checkPage from "../components/checkPage";
 import API from "../util/api";
 export default {

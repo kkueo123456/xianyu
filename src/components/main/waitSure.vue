@@ -3,6 +3,11 @@
   <div class="table">
     <el-table :data="finData">
       <el-table-column prop="QuoteId" label="估价编号"></el-table-column>
+      <el-table-column label="图片(1张)">
+        <template slot-scope="scope">
+          <img :src="scope.row.Questionnaire|transPic" style="width:50px;height:50px" alt />
+        </template>
+      </el-table-column>
       <el-table-column prop="UserId" label="用户id"></el-table-column>
       <el-table-column prop="SpuName" label="商品名"></el-table-column>
       <el-table-column prop="SupCategoryName" label="商品类型"></el-table-column>

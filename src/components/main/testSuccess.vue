@@ -4,6 +4,11 @@
     <el-table :data="data">
       <el-table-column prop="OrderId" label="订单编号"></el-table-column>
       <el-table-column prop="AdminName" label="管理员"></el-table-column>
+      <el-table-column label="图片(1张)">
+        <template slot-scope="scope">
+          <img :src="scope.row.Questionnaire|transPic" style="width:50px;height:50px" alt />
+        </template>
+      </el-table-column>
       <el-table-column prop="SellerRealName" label="卖家姓名"></el-table-column>
       <el-table-column prop="SupCategoryName" label="商品类型"></el-table-column>
       <el-table-column prop="SellerPhone" label="用户手机"></el-table-column>

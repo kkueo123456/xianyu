@@ -53,7 +53,7 @@ const actions = {
       target: '.main',
       text,
     });
-    axios({
+    return axios({
       url: API.orderList,
       method: "post",
       params: requestData

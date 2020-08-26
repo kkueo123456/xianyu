@@ -2,9 +2,13 @@
   <!-- 估价的dialog -->
   <div class="dialogWrap">
     <el-button type="text" @click="eval(chuanId,chuanImg)" v-if="state==false">估价</el-button>
-    <el-button type="text" @click="eval(chuanId)" v-if="state==true">质检</el-button>
+    <el-button type="text" @click="eval(chuanId,chuanImg)" v-if="state==true">质检</el-button>
     <!-- <el-button type="text" @click="eval(chuanId)" v-if="hasTest==true">重新质检</el-button> -->
-    <el-dialog title="质检报告(*为必填项)" :visible.sync="isShow" :modal-append-to-body="false">
+    <el-dialog
+      :title="state?'质检报告(*为必填项)':'估价报告'"
+      :visible.sync="isShow"
+      :modal-append-to-body="false"
+    >
       <div class="small-img">
         <el-image
           v-for="(item,index) in srcList"
@@ -193,7 +197,7 @@ export default {
     eval(id, chuanImg) {
       this.isShow = true;
       this.skuId = id;
-
+      console.log(chuanImg);
       //解析图片
       if (chuanImg) {
         let img = JSON.parse(chuanImg).questions;
@@ -391,6 +395,7 @@ export default {
     this.form.sayMain = this.isTest
       ? "请输入质检评价"
       : "以上为参考价格，具体以实物鉴定为准。若下单邮寄，邮费到付";
+
   },
   watch: {},
   computed: {},
@@ -435,18 +440,20 @@ export default {
 .radioGroup .el-radio-group /deep/ .el-radio {
   margin-right: 0;
 }
-// 提示
-.TestTip{
-  width 80%
-  margin 0 auto
-  display flex
 
+// 提示
+.TestTip {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
 }
-.TestTip span b{
-  margin-left 10px
-  font-weight normal
-  font-size 12px
+
+.TestTip span b {
+  margin-left: 10px;
+  font-weight: normal;
+  font-size: 12px;
 }
+
 // 附件
 .title-wrap {
   width: 80%;

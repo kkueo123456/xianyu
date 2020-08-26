@@ -9,6 +9,8 @@ const evalList = baseUrl + '/interface/QuoteList'
 const evalDoing = baseUrl + '/interface/InspectionReport'
 //订单的列表
 const orderList = baseUrl + '/interface/OrderList'
+// 所有订单列表
+const AllOrderList = baseUrl + '/interface/OrderListExport'
 //订单履约
 const orderPerform = baseUrl + '/interface/OrderFulfillment'
 //上传图片地址
@@ -44,6 +46,7 @@ export default {
   logOut,
   evalList,
   orderList,
+  AllOrderList,
   orderPerform,
   evalDoing,
   orderPic,
